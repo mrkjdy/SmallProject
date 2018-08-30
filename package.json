@@ -1,0 +1,22 @@
+{
+  "name": "contactmanager",
+  "version": "1.0.0",
+  "description": "A simple contact manager",
+  "main": "main.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrkjdy/SmallProject.git"
+  },
+  "author": "mrkjdy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrkjdy/SmallProject/issues"
+  },
+  "homepage": "https://github.com/mrkjdy/SmallProject#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
