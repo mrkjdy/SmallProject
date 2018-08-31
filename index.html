@@ -1,116 +1,21 @@
-<!DOCTYPE html>
-<html lang = "en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <link rel="stylesheet" href="indextest.css">
+</head>
 
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-		<!-- Popper JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	</head>
-
-	<body>
-		<div class="container-fluid bg-secondary">
-
-			<div class="row" style="height: 130px">
-  				<div class="col-sm-12">
-  					<h1 class="text-center"><pre>
-
-Contact Manager
-
-  				</pre></h1></div>
-  			</div>
-
-  			<div class="container bg-dark">
-  				<div class="row">
-
-  					<div class = "col-sm-6 container-fluid">
-  						<div class="row">
-  							<div class="col-sm-6"><h3 class="text-light">Login</h3></div>
-  							<br>
-  							<br>
-  							<br>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<pre class="text-light">User:     </pre><input type="text" id="UserLog">
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<pre class="text-light">Password: </pre><input type="password" id="PassLog">
-  								<br>
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<button>Login</button>
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-  					</div>
-  					
-  					<div class = "col-sm-6 container-fluid">
-  						<div class="row">
-  							<div class="col-sm-6"><h3 class="text-light">Register</h3></div>
-  							<br>
-  							<br>
-  							<br>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<pre class="text-light">User:     </pre><input type="text" id="UserReg">
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<pre class="text-light">Password: </pre><input type="password" id="PassReg">
-  								<br>
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-
-  						<div class="row">
-  							<div class="col-sm-6">
-  								<button>Register</button>
-  								<br>
-  								<br>
-  							</div>
-  						</div>
-  					</div>
-  				</div>
-  			</div>
-
-  			<div class="row">
-  				<div class="col-sm-12">
-  					<p class="text-light">
-  						<small>Contact manager by group 4</small>
-  					</p>
-  				</div>
-  			</div>
-
-		</div>
+<div class="login-page">
+  <div class="form">
+    <form class="register-form">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="username"/>
+      <input type="password" placeholder="password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+    </form>
+  </div>
 </div>
-	</body>
-</html>
