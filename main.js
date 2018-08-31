@@ -3,45 +3,45 @@ const mysql = require("mysql");
 const PORT = process.env.PORT || 5000;
 
 
-// mysql stuff
-var db_config = {
-  host     : 'us-cdbr-iron-east-01.cleardb.net',
-  user     : 'b0e7c31b916c42',
-  password : '04f5efab',
-  database : 'heroku_883b37654a02d69'
-};
+// // mysql stuff
+// var db_config = {
+//   host     : 'us-cdbr-iron-east-01.cleardb.net',
+//   user     : 'b0e7c31b916c42',
+//   password : '04f5efab',
+//   database : 'heroku_883b37654a02d69'
+// };
 
-var connection;
+// var connection;
 
-function handleDisconnect() 
-{
-  connection = mysql.createConnection(db_config);
+// function handleDisconnect() 
+// {
+//   connection = mysql.createConnection(db_config);
 
-  connection.connect(function(err) 
-  {
-    if(err) 
-    {
-      console.log('error when connecting to db:', err);
-      setTimeout(handleDisconnect, 2000);
-    }
-    console.log("Connected to mysql database!")
-  });
+//   connection.connect(function(err) 
+//   {
+//     if(err) 
+//     {
+//       console.log('error when connecting to db:', err);
+//       setTimeout(handleDisconnect, 2000);
+//     }
+//     console.log("Connected to mysql database!")
+//   });
 
-  connection.on('error', function(err) 
-  {
-    console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') 
-    {
-      handleDisconnect();
-    }
-    else 
-    {
-      throw err;
-    }
-  });
-}
+//   connection.on('error', function(err) 
+//   {
+//     console.log('db error', err);
+//     if(err.code === 'PROTOCOL_CONNECTION_LOST') 
+//     {
+//       handleDisconnect();
+//     }
+//     else 
+//     {
+//       throw err;
+//     }
+//   });
+// }
 
-handleDisconnect();
+// handleDisconnect();
 
 
 // Express stuff
