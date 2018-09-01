@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -51,8 +52,11 @@ const PORT = process.env.PORT || 5000;
 var app = express();
 
 app.use(express.static(__dirname));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser());
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
 
 app.listen(PORT, function()
 {
