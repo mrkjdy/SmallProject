@@ -1,5 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const PORT = process.env.PORT || 5000;
 
 
@@ -48,6 +51,8 @@ const PORT = process.env.PORT || 5000;
 var app = express();
 
 app.use(express.static(__dirname));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(PORT, function()
 {
