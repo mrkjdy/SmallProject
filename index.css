@@ -2,6 +2,7 @@ body
 {
   background-color: #e2e1e0;
   font-family: 'Roboto', sans-serif;
+  color: #757575;
 }
 
 #login-box
@@ -23,7 +24,7 @@ input
   padding: 10px;
 }
 
-h2
+/*h2
 {
   color: #757575;
-}
+}*/
