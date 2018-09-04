@@ -50,13 +50,38 @@ const PORT = process.env.PORT || 5000;
 
 // Express stuff
 var app = express();
-
 app.use(express.static(__dirname));
+
+// body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser());
+
+// passport initialization
+passport.use(new LocalStrategy(function(username, password, done) {
+	
+}));
+passport.serializeUser(function(user, done) {
+	done(null, user.user_id);
+});
+passport.deserializeUser(function(id, done) {
+	db.query("SELECT * FROM user WHERE user_id = " + id, function(err, result) {
+		done(null, result[0]);
+	});
+});
 app.use(passport.initialize());
 app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
+
+// login function
+app.post('/login', function(req, res) {
+	
+});
+
+// logout function
+app.post('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
 
 app.listen(PORT, function()
 {
