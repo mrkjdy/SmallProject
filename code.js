@@ -191,6 +191,7 @@ function createAccount()
 		return;
 	}
 
+
 	// Create the account
 
 	// set username and password then login
