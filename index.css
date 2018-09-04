@@ -48,7 +48,7 @@ input
   background-color: #43A047; /* Green */
 }
 
-#loginResult
+#submitMessage
 {
   color: red;
 }
