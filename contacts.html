@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="code.js" type="text/javascript"></script>
+
+  <title>G4 Contact Manager</title>
+  <p style="position:fixed;  margin: 0; padding: 1%; bottom: 0; right: 0; color: #757575">
+    Created by COP 4331 Group 4
+  </p>
+</head>
+
+<body>
+  <div id="contacts-box">
+    <h2>G4 Contact Manager</h2>
+
+    <form onsubmit="searchContact()" id="searchForm">
+      <input type="search" id="searchString" placeholder="Search contacts..." autofocus>
+      <select>
+        <option value="firstName">First Name</option>
+        <option value="lastName">Last Name</option>
+      </select>
+      <input type="submit" id="submitSearch" class="button" value="Search"><br>
+    </form>
+
+    <form onsubmit="addContact()" id="addContactForm">
+      <input type="text" id="newFirstName" placeholder="First Name">
+      <input type="text" id="newLastName" placeholder="Last Name">
+      <input type="text" id="newEmail" placeholder="Email">
+      <input type="text" id="newPhone" placeholder="Phone Number">
+      <input type="submit" id="submitAddContact" class="button" value="Add Contact"><br>
+    </form>
+
+    <div id="submitMessage"></div>
+    
+    <div id="contacts">
+      
+    </div>
+  </div>
+</body>
+
+</html>
