@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const favicon = require('serve-favicon');
 const PORT = process.env.PORT || 5000;
 
 
@@ -52,6 +53,9 @@ var db_config = {
 var app = express();
 app.use(express.static(__dirname));
 
+// favicon server
+app.use(favicon(__dirname + '/favicon.ico'));
+
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -60,14 +64,43 @@ app.use(bodyParser());
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
+	if(validateString('username', username) === true && validateString('password', password) === true) {
+		
+		db.query("SELECT * FROM /*insert user table*/ WHERE /*user name*/ = '" + username + "';", function(err, result) {
+			
+			if(err) {
+				/*database error handling*/
+			} else {
+				if(result.length === 0) return done(null, false, {message: 'Incorrect username'});
+				if(result[0].password.localeCompare(password) !== 0) return done(null, false, { message: 'Incorrect password'});
+				
+				return done(null, result[0]);
+			}
+		});
+	} else {
+		
+		/*string validation error handling*/
+	}
 }));
 passport.serializeUser(function(user, done) {
-	done(null, user.user_id);
+	done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
-	db.query("SELECT * FROM user WHERE user_id = " + id, function(err, result) {
-		done(null, result[0]);
-	});
+	
+	if(validateString('id', id) === true) {
+	
+		db.query("SELECT * FROM /*insert user table*/ WHERE /*id name*/ = " + id + ";", function(err, result) {
+			
+			if(err) {
+				/*database error handling*/
+			} else {
+				done(null, result[0]);
+			}
+		});
+	} else {
+	
+		/*string validation error handling*/
+	}
 });
 
 app.use(bodyParser.json());
@@ -79,6 +112,21 @@ app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
 // login function
 app.post('/login', function(req, res) {
 	
+	passport.authenticate('local', function(err, user, info) {
+		
+		if(err) {/*authentication error handling*/}
+		if(!user) {
+		
+			/*code that informs user*/
+		}
+		
+		req.logIn(user, function(err) {
+			
+			if(err) {/*login error handling*/}
+			
+			return res.redirect('/contacts');
+		});
+	})(req, res);
 });
 
 // logout function
