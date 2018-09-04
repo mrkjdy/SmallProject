@@ -130,13 +130,12 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				// Update the table on the website
+				// End
 			}
 		};
 		xhr.send(jsonPayload);
 	}
-	// End
-
-	// Update the table on the website
 	// End
 
 	// test the function is running: alert("searchContact()");
