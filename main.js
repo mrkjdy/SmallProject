@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const favicon = require('serve-favicon');
 const PORT = process.env.PORT || 5000;
 
 
@@ -51,6 +52,9 @@ var db_config = {
 // Express stuff
 var app = express();
 app.use(express.static(__dirname));
+
+// favicon server
+app.use(favicon(__dirname + '/favicon.ico'));
 
 // body-parser initialization
 app.use(bodyParser.json());
