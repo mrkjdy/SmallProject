@@ -23,7 +23,7 @@ function login()
 	document.getElementById("submitMessage").innerHTML = "";
 
 	// Create JSON pacage 
-	var jsonPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
+	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
 	var url = APIRoot + '/login.' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
