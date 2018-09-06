@@ -1,7 +1,7 @@
-var APIRoot; // Url
-var fileExtension; // .php example
-var contactsURL;
-var loginURL;
+var APIRoot = 'http://small-project-cop4331.herokuapp.com'; 
+var fileExtension = '.js'; 
+var contactsURL = '/contacts.html';
+var loginURL = '/index.html';
 
 var userID = 0;
 var firstName = "";
@@ -24,7 +24,7 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + '/login.' + fileExtension;
+	var url = APIRoot + '/login' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -79,7 +79,7 @@ function addContact()
 						+ '", "phone" : "' + pNum + '"userid" : "' 
 						+ userID + '"}';
 
-	var url = APIRoot + '/AddContact.' + fileExtension;
+	var url = APIRoot + '/addcontact' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -118,7 +118,7 @@ function searchContact()
 	// Create JSON pacage and send it to API
 	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
 						+ lName + '"}';
-	var url = APIRoot + '/SearchContact' + fileExtension;
+	var url = APIRoot + '/searchcontact' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -185,7 +185,7 @@ function deleteContact(index)
 						+ '", "phone" : "' + pNum + '"userid" : "' 
 						+ userID + '"}';
 
-	var url = APIRoot + '/DeleteContact' + fileExtension;
+	var url = APIRoot + '/deletecontact' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -241,7 +241,7 @@ function createAccount()
 
 	// Check if username available
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 + '"}';
-	var url = APIRoot + '/register.' + fileExtension;
+	var url = APIRoot + '/register' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
