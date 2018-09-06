@@ -150,10 +150,10 @@ function deleteContact(index)
 {
 	// I think this is how you would acces each element on the
 	// specific row we want to delete
-	var fName = document.getElementById("cTable").rows[index].cells[0].value;
-	var lName = document.getElementById("cTable").rows[index].cells[1].value;
-	var eMail = document.getElementById("cTable").rows[index].cells[2].value;
-	var pNum = document.getElementById("cTable").rows[index].cells[3].value;
+	var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
+	var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
+	var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
+	var pNum = document.getElementById("cTable").rows[index].cells[3].innerHTML;
 
 	// Create JSON pacage and send it to API
 	// End
