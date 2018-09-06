@@ -201,6 +201,7 @@ function deleteContact(index)
 	// End
 
 	// Update the table on the website
+	table.deleteRow(index);
 	// End
 
 	// test the function is running: alert("deleteContact()");
