@@ -107,8 +107,8 @@ function addContact()
 
 function searchContact()
 {
-	var fName = document.getElementById("fName").value;
-	var lName = document.getElementById("lName").value;
+	var sString = document.getElementById("searchString").value;
+	var sValue = document.getElementById("sBox").value;
 
 	// document.getElementById("colorSearchResult").innerHTML = "";
 
@@ -116,8 +116,7 @@ function searchContact()
 	// Clear the table
 
 	// Create JSON pacage and send it to API
-	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
-						+ lName + '"}';
+	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue +'"}';
 	var url = APIRoot + '/searchcontact' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
