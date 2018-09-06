@@ -140,19 +140,27 @@ function searchContact()
 				var jsonObject = JSON.parse(xhr.responseText);
 
 				// create the fields in the table 
-				// for(var i = 0; i < array.length; i++)
-				// {
-				// 	// create a new row
-				// 	var newRow = table.insertRow(table.length);
-				// 	for(var j = 0; j < array[i].length; j++)
-				// 	{
-				// 		// create a new cell
-				// 		var cell = newRow.insertCell(j);
+				for(var i = 0; i < jsonObject.length; i++)
+				{
+					// create a new row
+					var newRow = table.insertRow(table.length);
 
-				// 		// add value to the cell
-				// 		cell.innerHTML = array[i][j];
-				// 	}
-				// }
+					// create a new cell
+					var cell = newRow.insertCell(0);
+					// add value to the cell
+					cell.innerHTML = jsonObject[i].firstname;
+
+					cell = newRow.insertCell(1);
+					cell.innerHTML = jsonObject[i].lastname;
+					cell = newRow.insertCell(2);
+					cell.innerHTML = jsonObject[i].email;
+					cell = newRow.insertCell(3);
+					cell.innerHTML = jsonObject[i].phone;
+					cell = newRow.insertCell(4);
+
+					// Creates the X button to delete the contact TODO: revise
+					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-display-right">&times;</span> </li>';
+				}
 			}
 		};
 		xhr.send(jsonPayload);
@@ -161,9 +169,6 @@ function searchContact()
 	{
 		
 	}
-	// End
-
-	// Update the table on the website
 	// End
 
 	// test the function is running: alert("searchContact()");
