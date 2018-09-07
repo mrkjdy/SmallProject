@@ -18,9 +18,11 @@
 
     <form onsubmit="searchContact()" id="searchForm">
       <input type="search" id="searchString" placeholder="Search contacts..." autofocus>
-      <select>
-        <option value="firstName">First Name</option>
-        <option value="lastName">Last Name</option>
+      <select id="sBox">
+        <option value="firstname">First Name</option>
+        <option value="lastname">Last Name</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
       </select>
       <input type="submit" id="submitSearch" class="button" value="Search"><br>
     </form>
