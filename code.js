@@ -38,7 +38,7 @@ function login()
 
 		var jsonObject = JSON.parse(xhr.responseText);
 
-		userID = jsonObject.id;
+		userID = jsonObject.UserID;
 
 		//check wether login was succesfull
 		if (userID < 1)
@@ -117,7 +117,8 @@ function searchContact()
 	// Clear the table
 
 	// Create JSON pacage and send it to API
-	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue +'"}';
+	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"userid" : "' 
+						+ userID + '"}';
 	var url = APIRoot + '/searchcontact' + fileExtension;
 
 	var xhr = new XMLHttpRequest();
