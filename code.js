@@ -234,7 +234,7 @@ function createAccount()
 
 	if (user == "")
 	{
-		document.getElementById("submitMessage").innerHTML = "Enter an user name";
+		document.getElementById("submitMessage").innerHTML = "Enter a user name";
 		return;
 	}
 
