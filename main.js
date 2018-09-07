@@ -21,9 +21,9 @@ var db = mysql.createPool({
 });
 
 // Home page
-server.get('/', function(req, res) {
-	res.sendFile("Index.html");
-});
+// server.get('/', function(req, res) {
+// 	res.sendFile("Index.html");
+// });
 
 // Login page
 server.post('/login', function(req, res) {
