@@ -3,9 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
+const session = require('express-session');
+var server = express();
+// const server = express();
 
-const server = express();
-
+// body-parser initialization
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser());
@@ -20,10 +22,19 @@ var db = mysql.createPool({
 
 });
 
-// Home page
-server.get('/', function(req, res) {
-	res.sendFile("Index.html");
+// Express stuff
+
+server.use(express.static(__dirname));
+
+server.listen(PORT, function()
+{
+	console.log("Listening on " + PORT)
 });
+
+// // Home page
+// server.get('/', function(req, res) {
+// 	res.sendFile(__dirname+"/index.html");
+// });
 
 // Login page
 server.post('/login', function(req, res) {
@@ -362,4 +373,4 @@ var checkInput = function(input, type, callback) {
 	}
 }
 
-server.listen(PORT);
+//server.listen(PORT);
