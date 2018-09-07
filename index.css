@@ -78,7 +78,7 @@ input
 
 button {
      background:none!important;
-     color:blue;
+     color:inherit;
      border:none; 
      padding:0!important;
      font: inherit;

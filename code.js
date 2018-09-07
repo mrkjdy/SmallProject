@@ -281,6 +281,7 @@ function showCreateAccount()
 	document.getElementById("createAccountForm").style.display = "block";
 	document.getElementById("loginPrompt").style.display = "block";
 	document.getElementById("newUName").focus();
+	document.getElementById("submitMessage").innerHTML = "";
 }
 
 function showLogin()
@@ -290,6 +291,7 @@ function showLogin()
 	document.getElementById("createAccountForm").style.display = "none";
 	document.getElementById("loginPrompt").style.display = "none";
 	document.getElementById("uName").focus();
+	document.getElementById("submitMessage").innerHTML = "";
 }
 
 
