@@ -25,7 +25,7 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + '/login' + fileExtension;
+	var url = APIRoot + '/login'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -250,7 +250,7 @@ function createAccount()
 
 	// Check if username available
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 + '"}';
-	var url = APIRoot + '/register' + fileExtension;
+	var url = APIRoot + '/register'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
