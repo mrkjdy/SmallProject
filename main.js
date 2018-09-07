@@ -191,6 +191,7 @@ server.post('/deletecontact', function(req, res) {
 					
 					// End connection
 					tempCont.release();
+					console.log('Connection Released');
 			
 				});
 				
