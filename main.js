@@ -26,7 +26,7 @@ server.get('/', function(req, res) {
 });
 
 // Login page
-server.post('/login', function(req, res)) {
+server.post('/login', function(req, res) {
 	
 		// Create connection to database
 		db.getConnection(function(err, tempCont){
@@ -59,8 +59,7 @@ server.post('/login', function(req, res)) {
 			tempCont.release();
 		
 		}
-	}
-}
+});
 
 // Register page
 server.post('/register', function(req, res) {
