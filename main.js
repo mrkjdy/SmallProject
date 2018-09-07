@@ -185,7 +185,7 @@ app.post('/deletecontact', function(req, res) {
 			
 				// Delect contact from database, Might need a parseInt method if UserId and ContactId is parsed as a string
 				const sqlDeleteContact = "Delete FROM contact WHERE UserID = ? AND ContactId = ?";
-				tempCont.query(sqlContact,[req.body.userid, req.body.ContactId], function(err, result) {
+				tempCont.query(sqlDeleteContact,[req.body.userid, req.body.ContactId], function(err, result) {
 					
 					// Check if query works
 					if (err) {
