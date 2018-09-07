@@ -10,7 +10,7 @@ var server = express();
 // body-parser initialization
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
-server.use(bodyParser());
+//server.use(bodyParser());
 
 // Login to database
 var db = mysql.createPool({
