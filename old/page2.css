@@ -1,0 +1,57 @@
+ body
+{
+  background-color: #e2e1e0;
+  font-family: 'Roboto', sans-serif;
+  color: #757575;
+  font-size: 16px;
+}
+
+#login-box
+{
+  position: fixed;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background: #fff;
+  border-radius: 4px;
+  width: 600px;
+  margin: -150px 0px 0px -150px;
+  top: 30%;
+  left: 50%;
+  text-align: center;
+}
+
+#login-box p
+{
+  font-size: 12px;
+}
+
+.buttonGreen
+{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-decoration: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.buttonBlue
+{
+  background-color: #504caf; /* Blue */
+  border: none;
+  color: white;
+  text-decoration: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.button:hover
+{
+  background-color: #43A047; /* Green */
+}
+
+input
+{
+  padding: 10px;
+  width: 70%;
+  outline: 0;
+}

@@ -4,13 +4,20 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
 const session = require('express-session');
-var server = express();
-// const server = express();
+var app = express();
+var path = require('path');
+// const app = express();
 
 // body-parser initialization
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({extended: true}));
-//server.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.listen(PORT, function()
+{
+	console.log("Listening on " + PORT)
+});
 
 // Login to database
 var db = mysql.createPool({
@@ -22,59 +29,46 @@ var db = mysql.createPool({
 
 });
 
-// Express stuff
-
-server.use(express.static(__dirname));
-
-server.listen(PORT, function()
-{
-	console.log("Listening on " + PORT)
-});
-
-// // Home page
-// server.get('/', function(req, res) {
-// 	res.sendFile(__dirname+"/index.html");
-// });
 
 // Login page
-server.post('/login', function(req, res) {
-	
-	// Create connection to database
-	db.getConnection(function(err, tempCont){
+app.post('/login', function(req, res) {
+	console.log('form submitted');
+	// // Create connection to database
+	// db.getConnection(function(err, tempCont){
 			
-		// Check if correct format
-		if(checkInput(req.body.value, "username")) {
+	// 	// Check if correct format
+	// 	if(checkInput(req.body.value, "username")) {
 						
-			// Search for username and password in database
-			tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
+	// 		// Search for username and password in database
+	// 		tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
 						
-				// Check if query works
-				if (err) {
-					res.status(400).send('Query Fail');
-				} else {
+	// 			// Check if query works
+	// 			if (err) {
+	// 				res.status(400).send('Query Fail');
+	// 			} else {
 						
-					// Check if username and password is in the database
-					if(result == "") {
-						res.send({ "UserId": 0 });
-					} else {
-						res.send(result);
-					}	
-				}				        
-			});				
+	// 				// Check if username and password is in the database
+	// 				if(result == "") {
+	// 					res.send({ "UserId": 0 });
+	// 				} else {
+	// 					res.send(result);
+	// 				}	
+	// 			}				        
+	// 		});				
 				
-		} else {
-			res.status(400).send('Invalid Values');
-		}
+	// 	} else {
+	// 		res.status(400).send('Invalid Values');
+	// 	}
 			
-		// End connection
-		tempCont.release();
+	// 	// End connection
+	// 	tempCont.release();
 	
-	});
+	// });
 });
 
 
 // Register page
-server.post('/register', function(req, res) {
+app.post('/register', function(req, res) {
 	
 	// Check if correct format
 	if(checkInput(req.body.username, "username")) {
@@ -129,7 +123,7 @@ server.post('/register', function(req, res) {
 });
 
 // Add contact page
-server.post('/addcontact', function(req, res) { 
+app.post('/addcontact', function(req, res) { 
 	
 	// Check if user is logged on
 	if(req.body.userid < 1){
@@ -173,7 +167,7 @@ server.post('/addcontact', function(req, res) {
 });
 
 // Delete Contact
-server.post('/deletecontact', function(req, res) {
+app.post('/deletecontact', function(req, res) {
 	
 	// Check if user is logged on
 	if(req.body.userid < 1){
@@ -212,7 +206,7 @@ server.post('/deletecontact', function(req, res) {
 });
 
 // Search Contact
-server.post('/searchcontact', function(req, res) {
+app.post('/searchcontact', function(req, res) {
 	
 	// Check if user is logged on
 	if(req.body.userid < 1){
@@ -373,4 +367,4 @@ var checkInput = function(input, type, callback) {
 	}
 }
 
-//server.listen(PORT);
+//app.listen(PORT);
