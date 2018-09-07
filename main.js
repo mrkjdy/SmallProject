@@ -28,38 +28,39 @@ server.get('/', function(req, res) {
 // Login page
 server.post('/login', function(req, res) {
 	
-		// Create connection to database
-		db.getConnection(function(err, tempCont){
+	// Create connection to database
+	db.getConnection(function(err, tempCont){
 			
-			// Check if correct format
-			if(checkInput(req.body.value, "username")) {
+		// Check if correct format
+		if(checkInput(req.body.value, "username")) {
 						
-				// Search for username and password in database
-				tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
+			// Search for username and password in database
+			tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
 						
-					// Check if query works
-					if (err) {
-						res.status(400).send('Query Fail');
+				// Check if query works
+				if (err) {
+					res.status(400).send('Query Fail');
+				} else {
+						
+					// Check if username and password is in the database
+					if(result == "") {
+						res.send({ "UserId": 0 });
 					} else {
-						
-						//
-						if(result == "") {
-							res.send({ "UserId": 0 });
-						} else {
-							res.send(result);
-						}	
-					}				        
-				});				
+						res.send(result);
+					}	
+				}				        
+			});				
 				
-			} else {
-				res.status(400).send('Invalid Values');
-			}
-			
-			// End connection
-			tempCont.release();
-		
+		} else {
+			res.status(400).send('Invalid Values');
 		}
+			
+		// End connection
+		tempCont.release();
+	
+	});
 });
+
 
 // Register page
 server.post('/register', function(req, res) {
@@ -103,12 +104,12 @@ server.post('/register', function(req, res) {
 								// End connection
 								tempCont.release();
 							
-							}
+							});
 						}
 					} 	
-				}	
+				});	
 			}
-		}
+		});
 	
 	} else {
 		res.status(400).send('Invalid Values');
@@ -343,7 +344,7 @@ var checkInput = function(input, type, callback) {
 			
 		case "phone":
 			var re = /(1){0,1}\d{10}$/i; // Format 18004445555 | 4074445555
-			var number = input.replace(/[^\d]/g, ''));
+			var number = input.replace(/[^\d]/g, '');
 			
 			returnVal = re.test(number);
 			break;
