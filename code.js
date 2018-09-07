@@ -242,8 +242,10 @@ function createAccount()
 	if (newPWord1 !== newPWord2)
 	{
 		document.getElementById("submitMessage").innerHTML = "Passwords don't match";
-		return false;
+		return;
 	}
+
+	newPWord1 = calcMD5(newPWord1);
 
 	// Check if username available
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 + '"}';
