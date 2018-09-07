@@ -1,7 +1,10 @@
-const http = require('http');
-const express = require('express');
+const express = require("express");
+const mysql = require("mysql");
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const favicon = require('serve-favicon');
 const PORT = process.env.PORT || 5000;
 
 const server = express();
