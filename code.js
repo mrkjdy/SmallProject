@@ -242,7 +242,7 @@ function createAccount()
 	if (newPWord1 !== newPWord2)
 	{
 		document.getElementById("submitMessage").innerHTML = "Passwords don't match";
-		return;
+		return false;
 	}
 
 	// Check if username available
