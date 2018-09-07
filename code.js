@@ -239,7 +239,7 @@ function createAccount()
 	}
 
 	// Check if passwords match
-	if (newPWord1 != newPWord2)
+	if (newPWord1 !== newPWord2)
 	{
 		document.getElementById("submitMessage").innerHTML = "Passwords don't match";
 		return;
