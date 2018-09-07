@@ -28,7 +28,7 @@ function login()
 	var url = APIRoot + 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	try
