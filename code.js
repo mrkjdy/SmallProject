@@ -25,7 +25,7 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + '/login'; //+ fileExtension;
+	var url = APIRoot + 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
