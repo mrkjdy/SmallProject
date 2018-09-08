@@ -100,7 +100,7 @@ function addContact()
 
 	console.log(uJsonObject.UserId);
 
-	userID = uJsonObject.UserID;
+	userID = uJsonObject.UserId;
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
