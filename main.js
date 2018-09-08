@@ -231,13 +231,14 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, "name")) {
 							
 							// Search for first name in database
-							tempCont.query("SELECT * FROM contact WHERE FirstName = '?'", [requset.body.firstname] function(err, result) {
+							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND FirstName = ?",[req.body.userid, req.body.value], function(err, result) {
 								
 								// Check if query works
 								if (err) {
 									res.status(400).send('Query Fail');
 								} else {
-									res.send(result);									
+									res.send(result);
+									console.log(req.body.userid);
 								}				        
 							});				
 					
