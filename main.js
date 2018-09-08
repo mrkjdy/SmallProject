@@ -187,7 +187,7 @@ app.post('/deletecontact', function(req, res) {
 			
 				// Delect contact from database, Might need a parseInt method if UserId and ContactId is parsed as a string
 				const sqlDeleteContact = "Delete FROM contact WHERE UserID = ? AND ContactId = ?";
-				tempCont.query(sqlContact,[req.body.userid, req.body.ContactId], function(err, result) {
+				tempCont.query(sqlDeleteContact,[req.body.userid, req.body.contactid], function(err, result) {
 					
 					// Check if query works
 					if (err) {
@@ -233,13 +233,13 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, "name")) {
 							
 							// Search for first name in database
-							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND FirstName = ?",[req.body.userid, req.body.firstname], function(err, result) {
+							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND FirstName = ?",[req.body.userid, req.body.value], function(err, result) {
 								
 								// Check if query works
 								if (err) {
 									res.status(400).send('Query Fail');
 								} else {
-									res.send("query worked");
+									res.send(result);
 								}				        
 							});				
 					
