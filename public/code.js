@@ -208,14 +208,14 @@ function searchContact()
 					// create a new cell
 					var cell = newRow.insertCell(0);
 					// add value to the cell
-					cell.innerHTML = jsonObject[i].firstname;
+					cell.innerHTML = jsonObject[i].FirstName;
 
 					cell = newRow.insertCell(1);
-					cell.innerHTML = jsonObject[i].lastname;
+					cell.innerHTML = jsonObject[i].LastName;
 					cell = newRow.insertCell(2);
-					cell.innerHTML = jsonObject[i].email;
+					cell.innerHTML = jsonObject[i].Email;
 					cell = newRow.insertCell(3);
-					cell.innerHTML = jsonObject[i].phone;
+					cell.innerHTML = jsonObject[i].PhoneNumber;
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
