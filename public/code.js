@@ -189,7 +189,11 @@ function searchContact()
 					table.deleteRow(table.length - 1);
 				}
 
-				var jsonObject = JSON.parse(xhr.responseText);
+				var jt = this.responseText;
+        		var JSLength = jt.length;
+				jt = jt.substr(1, (JSLength - 2));
+
+				var jsonObject = JSON.parse(jt);
 
 				// create the fields in the table 
 				for(var i = 0; i < jsonObject.length; i++)
