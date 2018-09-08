@@ -25,7 +25,7 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + "/main.js" //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
+	var url = APIRoot + "/main.js"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -80,7 +80,7 @@ function addContact()
 						+ '", "phone" : "' + pNum + '"userid" : "' 
 						+ userID + '"}';
 
-	var url = APIRoot + '/addcontact' + fileExtension;
+	var url = APIRoot + '/addcontact'; // + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -119,7 +119,7 @@ function searchContact()
 	// Create JSON pacage and send it to API
 	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"userid" : "' 
 						+ userID + '"}';
-	var url = APIRoot + '/searchcontact' + fileExtension;
+	var url = APIRoot + '/searchcontact'; // + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -191,7 +191,7 @@ function deleteContact(index)
 						+ '", "phone" : "' + pNum + '"userid" : "' 
 						+ userID + '"}';
 
-	var url = APIRoot + '/deletecontact' + fileExtension;
+	var url = APIRoot + '/deletecontact'; // + fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
