@@ -47,7 +47,7 @@ function login()
     		
     			//console.log("test2");
 
-				userID = jsonObject.UserId;
+				userID = jsonObject.UserID;
 
 				//localStorage.setItem(jsonObject.UserID, userID);
 
@@ -96,9 +96,9 @@ function addContact()
 
 	var uJsonObject = JSON.parse(JS);
 
-	console.log(uJsonObject.UserId);
+	console.log(uJsonObject.UserID);
 
-	userID = uJsonObject.UserId;
+	userID = uJsonObject.UserID;
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
