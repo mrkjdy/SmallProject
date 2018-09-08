@@ -4,8 +4,10 @@ var contactsURL = 'contacts.html';
 var loginURL = 'index.html';
 
 var userID = 0;
-var firstName = "";
-var lastName = "";
+var firstName = '';
+var lastName = '';
+
+var JSONtextID = '';
 
 function login()
 {
@@ -39,6 +41,8 @@ function login()
 		xhr.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
         		var jsonObject = JSON.parse(this.responseText);
+
+        		localStorage.setItem(JSONtextID, this.responseText);
         		//console.log("woooooo");
     		
     			//console.log("test2");
@@ -85,6 +89,10 @@ function addContact()
 	var lName = document.getElementById("newLastName").value;
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
+
+	var uJsonObject = JSON.parse(localStorage.getItem(JSONtextID));
+
+	userID = uJsonObject.UserID;
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
