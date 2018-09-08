@@ -91,6 +91,8 @@ function addContact()
 	var pNum = document.getElementById("newPhone").value;
 
 	var JS = localStorage.getItem(JSONtextID);
+	var JSLength = JS.length;
+	JS = JS.substr(1, (JSLength - 2));
 
 	console.log(JS);
 
