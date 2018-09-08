@@ -256,7 +256,7 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, "name")) {
 							
 							// Search for last name in database
-							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND LastName = ?",[req.body.userid, req.body.lastname], function(err, result) {
+							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND LastName = ?",[req.body.userid, req.body.value], function(err, result) {
 								
 								// Check if query fail
 								if (err) {
@@ -280,7 +280,7 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, req.body.type)) {
 							
 							// Search for phone number in database
-							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND PhoneNumber = ?",[req.body.userid, req.body.phone], function(err, result){
+							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND PhoneNumber = ?",[req.body.userid, req.body.value], function(err, result){
 								
 								// Check if query works
 								if (err) {
@@ -303,7 +303,7 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, req.body.type)) {
 							
 							// Search for email in database
-							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND Email = ?",[req.body.userid, req.body.email], function(err, result) {
+							tempCont.query("SELECT * FROM contact WHERE UserId = ? AND Email = ?",[req.body.userid, req.body.value], function(err, result) {
 								
 								// Check if query works
 								if (err) {
