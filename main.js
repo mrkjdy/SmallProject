@@ -237,7 +237,7 @@ app.post('/searchcontact', function(req, res) {
 								if (err) {
 									res.status(400).send('Query Fail');
 								} else {
-									res.send(req.body.firstname);									
+									res.send(result);									
 								}				        
 							});				
 					
