@@ -22,7 +22,7 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + "/login"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
+	var url = "/login"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
 
 	//alert(jsonPayload);
 
