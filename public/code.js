@@ -47,7 +47,7 @@ function login()
     		
     			//console.log("test2");
 
-				userID = jsonObject.UserID;
+				userID = jsonObject.UserId;
 
 				//localStorage.setItem(jsonObject.UserID, userID);
 
@@ -90,11 +90,15 @@ function addContact()
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
 
-	var uJsonObject = JSON.parse(localStorage.getItem(JSONtextID));
+	var JS = localStorage.getItem(JSONtextID);
 
-	console.log(localStorage.getItem(JSONtextID));
+	console.log(JS);
 
-	userID = uJsonObject.UserID;
+	var uJsonObject = JSON.parse(JS);
+
+	console.log(uJsonObject.UserId);
+
+	userID = uJsonObject.UserId;
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
