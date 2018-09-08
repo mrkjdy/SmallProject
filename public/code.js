@@ -137,7 +137,7 @@ function searchContact()
 	// Create JSON pacage and send it to API
 	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
 						+ userID + '}';
-	var url = APIRoot + '/searchcontact' + fileExtension;
+	var url = '/searchcontact';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -209,7 +209,7 @@ function deleteContact(index)
 						+ '", "phone" : "' + pNum + '", "userid" : ' 
 						+ userID + '}';
 
-	var url = APIRoot + '/deletecontact' + fileExtension;
+	var url = '/deletecontact';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
