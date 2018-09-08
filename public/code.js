@@ -42,6 +42,8 @@ function login()
     		if (this.readyState == 4 && this.status == 200) {
         		var jsonObject = JSON.parse(this.responseText);
 
+        		console.log(this.responseText);
+
         		localStorage.setItem(JSONtextID, this.responseText);
         		//console.log("woooooo");
     		
