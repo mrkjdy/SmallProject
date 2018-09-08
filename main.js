@@ -231,7 +231,7 @@ app.post('/searchcontact', function(req, res) {
 						if(checkInput(req.body.value, "name")) {
 							
 							// Search for first name in database
-							tempCont.query("SELECT * FROM contact WHERE FirstName = ?",[req.body.firstname], function(err, result) {
+							tempCont.query("SELECT * FROM contact WHERE FirstName = ?",["'" + req.body.firstname + "'"], function(err, result) {
 								
 								// Check if query works
 								if (err) {
