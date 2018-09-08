@@ -56,8 +56,6 @@ function login()
 
 				//localStorage.setItem(jsonObject.UserID, userID);
 
-				alert(userID);
-
 				//check wether login was succesfull
 				if (userID == 0)
 				{
