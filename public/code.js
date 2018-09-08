@@ -76,6 +76,8 @@ function login()
 
 		// send pacage to API
 		xhr.send(jsonPayload);
+
+		console.log("payload sent");
 	}
 	catch(err)
 	{
