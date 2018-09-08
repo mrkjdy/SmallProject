@@ -33,37 +33,39 @@ var db = mysql.createPool({
 // Login page
 app.post('/login', function(req, res) {
 	console.log('form submitted');
-	// // Create connection to database
-	// db.getConnection(function(err, tempCont){
+	// Create connection to database
+	db.getConnection(function(err, tempCont){
 			
-	// 	// Check if correct format
-	// 	if(checkInput(req.body.value, "username")) {
+		// Check if correct format
+		if(checkInput(req.body.value, "username")) {
 						
-	// 		// Search for username and password in database
-	// 		tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
-						
-	// 			// Check if query works
-	// 			if (err) {
-	// 				res.status(400).send('Query Fail');
-	// 			} else {
-						
-	// 				// Check if username and password is in the database
-	// 				if(result == "") {
-	// 					res.send({ "UserId": 0 });
-	// 				} else {
-	// 					res.send(result);
-	// 				}	
-	// 			}				        
-	// 		});				
+			// Search for username and password in database
+			tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
 				
-	// 	} else {
-	// 		res.status(400).send('Invalid Values');
-	// 	}
+				res.setHeader('Content-Type', 'application/json');
+
+				// Check if query works
+				if (err) {
+					res.status(400).send('Query Fail');
+				} else {
+						
+					// Check if username and password is in the database
+					if(result == "") {
+						res.send(JSON.stringify({ "UserID": 0 }));
+					} else {
+						res.send(result);
+					}	
+				}				        
+			});				
+				
+		} else {
+			res.status(400).send('Invalid Values');
+		}
 			
-	// 	// End connection
-	// 	tempCont.release();
+		// End connection
+		tempCont.release();
 	
-	// });
+	});
 });
 
 
@@ -237,7 +239,7 @@ app.post('/searchcontact', function(req, res) {
 								if (err) {
 									res.status(400).send('Query Fail');
 								} else {
-									res.send(result);
+									res.send("query worked");
 								}				        
 							});				
 					

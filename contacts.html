@@ -16,7 +16,7 @@
   <div id="contacts-box">
     <h2>G4 Contact Manager</h2>
 
-    <form onsubmit="searchContact()" id="searchForm">
+    <form onsubmit="searchContact(); return false" id="searchForm">
       <input type="search" id="searchString" placeholder="Search contacts..." autofocus>
       <select id="sBox">
         <option value="firstname">First Name</option>
@@ -27,7 +27,7 @@
       <input type="submit" id="submitSearch" class="button" value="Search"><br>
     </form>
 
-    <form onsubmit="addContact()" id="addContactForm">
+    <form onsubmit="addContact(); return false" id="addContactForm">
       <input type="text" id="newFirstName" placeholder="First Name">
       <input type="text" id="newLastName" placeholder="Last Name">
       <input type="text" id="newEmail" placeholder="Email">
