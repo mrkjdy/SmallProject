@@ -93,6 +93,7 @@ function addContact()
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
 
+	// Get the user id
 	var JS = localStorage.getItem(JSONtextID);
 
 	console.log(JS);
@@ -102,6 +103,7 @@ function addContact()
 	console.log(uJsonObject.UserId);
 
 	userID = uJsonObject.UserId;
+	// End
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
@@ -146,6 +148,18 @@ function searchContact()
 {
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
+
+	// Get the user id
+	var JS = localStorage.getItem(JSONtextID);
+
+	console.log(JS);
+
+	var uJsonObject = JSON.parse(JS);
+
+	console.log(uJsonObject.UserId);
+
+	userID = uJsonObject.UserId;
+	// End
 
 	// document.getElementById("colorSearchResult").innerHTML = "";
 
