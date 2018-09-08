@@ -92,6 +92,8 @@ function addContact()
 
 	var uJsonObject = JSON.parse(localStorage.getItem(JSONtextID));
 
+	console.log(localStorage.getItem(JSONtextID));
+
 	userID = uJsonObject.UserID;
 
 	// document.getElementById("contactAddResult").innerHTML = "";
