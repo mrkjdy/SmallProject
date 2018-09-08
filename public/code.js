@@ -40,11 +40,14 @@ function login()
 
 		xhr.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
-        		var jsonObject = JSON.parse(this.responseText);
 
-        		console.log(this.responseText);
+        		var JS = this.responseText;
+        		var JSLength = JS.length;
+				JS = JS.substr(1, (JSLength - 2));
 
-        		localStorage.setItem(JSONtextID, this.responseText);
+				var jsonObject = JSON.parse(JS);
+
+        		localStorage.setItem(JSONtextID, JS);
         		//console.log("woooooo");
     		
     			//console.log("test2");
@@ -93,8 +96,6 @@ function addContact()
 	var pNum = document.getElementById("newPhone").value;
 
 	var JS = localStorage.getItem(JSONtextID);
-	var JSLength = JS.length;
-	JS = JS.substr(1, (JSLength - 2));
 
 	console.log(JS);
 
