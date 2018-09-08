@@ -189,9 +189,13 @@ function searchContact()
 					table.deleteRow(table.length - 1);
 				}
 
+				console.log(this.responseText);
+
 				var jt = this.responseText;
         		var JSLength = jt.length;
 				jt = jt.substr(1, (JSLength - 2));
+
+				console.log(jt);
 
 				var jsonObject = JSON.parse(jt);
 
