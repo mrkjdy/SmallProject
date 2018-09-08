@@ -1,4 +1,4 @@
-var APIRoot = 'http://small-project-cop4331.herokuapp.com'; 
+var APIRoot = 'https://small-project-cop4331.herokuapp.com'; 
 var fileExtension = '.js'; 
 var contactsURL = 'contacts.html';
 var loginURL = 'index.html';
