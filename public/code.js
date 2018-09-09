@@ -220,7 +220,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ i +')" class="w3-button w3-display-right">&times;</span> </li>';
 				}
 			}
 		};
@@ -239,6 +239,7 @@ function deleteContact(index)
 {
 	// I think this is how you would acces each element on the
 	// specific row we want to delete
+	var table = document.getElementById("cTable");
 	var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
 	var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
 	var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
