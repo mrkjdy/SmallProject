@@ -220,7 +220,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ i +')" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) +')" class="w3-button w3-display-right">&times;</span> </li>';
 				}
 			}
 		};
@@ -250,6 +250,8 @@ function deleteContact(index)
 						+ lName + '", "email" : "' + eMail 
 						+ '", "phone" : "' + pNum + '", "userid" : ' 
 						+ userID + '}';
+
+	console.log(jsonPayload);
 
 	var url = '/deletecontact';
 
