@@ -186,7 +186,7 @@ function searchContact()
 				// clear the table
 				while (table.rows.length > 1)
 				{
-					table.delereRow(table.rows.length - 1);
+					table.deleteRow(table.rows.length - 1);
 				}
 				console.log(table.rows.length);
 
