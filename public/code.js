@@ -187,6 +187,8 @@ function searchContact()
 				var tBody = document.getElementById("tBody");
 				tBody.innerHTML = "";
 
+				console.log(table.length);
+
 				//console.log(this.responseText);
 
 				var jt = this.responseText;
