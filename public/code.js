@@ -184,9 +184,10 @@ function searchContact()
 				var table = document.getElementById("cTable");
 
 				// clear the table
-				var tBody = document.getElementById("tBody");
-				tBody.innerHTML = "";
-
+				while (table.rows.length > 1)
+				{
+					table.delereRow(table.rows.length - 1);
+				}
 				console.log(table.rows.length);
 
 				//console.log(this.responseText);
@@ -203,7 +204,7 @@ function searchContact()
 				for(var i = 0; i < jsonObject.length; i++)
 				{
 					// create a new row
-					var newRow = table.insertRow(table.length);
+					var newRow = table.insertRow(table.rows.length);
 
 					// create a new cell
 					var cell = newRow.insertCell(0);
