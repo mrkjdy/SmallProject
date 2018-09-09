@@ -152,7 +152,7 @@ function searchContact()
 	// Get the user id
 	var JS = localStorage.getItem(JSONtextID);
 
-	console.log(JS);
+	//console.log(JS);
 
 	var uJsonObject = JSON.parse(JS);
 
@@ -189,11 +189,11 @@ function searchContact()
 					table.deleteRow(table.length - 1);
 				}
 
-				console.log(this.responseText);
+				//console.log(this.responseText);
 
 				var jt = this.responseText;
-        		var JSLength = jt.length;
-				jt = jt.substr(1, (JSLength - 2));
+        		//var JSLength = jt.length;
+				//jt = jt.substr(1, (JSLength - 2));
 
 				console.log(jt);
 
