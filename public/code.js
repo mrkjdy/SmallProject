@@ -279,6 +279,7 @@ function logout()
 	userID = 0;
 	firstName = "";
 	lastName = "";
+	localStorage.setItem(JSONtextID, "{UserId:0}");
 
 	document.location.href = loginURL;
 	// End
