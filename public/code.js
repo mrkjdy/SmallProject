@@ -184,11 +184,8 @@ function searchContact()
 				var table = document.getElementById("cTable");
 
 				// clear the table
-				while (table.length > 1)
-				{
-					console.log("in the loop: " + table.length);
-					table.deleteRow(table.length - 1);
-				}
+				var tBody = document.getElementById("tBody");
+				tBody.innerHTML = "";
 
 				//console.log(this.responseText);
 
@@ -196,7 +193,7 @@ function searchContact()
         		//var JSLength = jt.length;
 				//jt = jt.substr(1, (JSLength - 2));
 
-				console.log(jt);
+				//console.log(jt);
 
 				var jsonObject = JSON.parse(jt);
 

@@ -36,7 +36,7 @@
       <input type="submit" id="submitSearch" class="button" value="Search"><br>
     </form>
 
-    <form onsubmit="addContact(); return false" id="addContactForm">
+    <form onsubmit="addContact()" id="addContactForm">
         <div class="row">
       <input type="text" id="newFirstName" placeholder="First Name">
       <input type="text" id="newLastName" placeholder="Last Name">
@@ -61,7 +61,7 @@
             <th data-priority="1"><span class="glyphicon glyphicon-trash"></span></th>
           </tr>
       </thead>
-      <tbody>
+      <tbody id="tBody">
           
           <tr>
           <ul class="w3-ul w3-card-4">
