@@ -51,7 +51,7 @@ app.post('/login', function(req, res) {
 						
 					// Check if username and password is in the database
 					if(result == "") {
-						res.send(JSON.stringify({ "UserId": 0 }));
+						res.send(JSON.stringify([{ "UserId": 0 }]));
 					} else {
 						res.send(result);
 					}	
