@@ -262,6 +262,7 @@ function deleteContact(index)
 	try
 	{
 		xhr.send(jsonPayload);
+		console.log("payload sent");
 	}
 	catch(err)
 	{
