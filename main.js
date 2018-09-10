@@ -9,6 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
 var app = express();
 var path = require('path');
 // const app = express();
@@ -16,6 +17,10 @@ var path = require('path');
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.cookieParser());
+app.use(express.session({secret: '7i5mnQZjPSqL924rQvxG'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -80,7 +85,7 @@ passport.deserializeUser(function(id, done) {
 		} else {
 			tempCont.query("SELECT * FROM users WHERE UserId = ?;", [id], function(err, result) {
 				if(err) {
-					/*database error handling*/
+					console.log(err);
 				} else {
 					done(null, result[0]);
 				}
@@ -88,10 +93,6 @@ passport.deserializeUser(function(id, done) {
 		}
 	});
 });
-
-app.use(passport.initialize());
-app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
-
 
 app.post('/login', function(req, res) {
 	
@@ -415,14 +416,15 @@ var checkInput = function(input, type, callback) {
 		case "password":
 			 var re= /[a-z\d]{32}$/;
 			 returnVal= re.test(input);
+			 break;
 			
 		case "email":
-			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
+			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
 			returnVal = re.test(input);
 			break;
 
 		case "emailsearch":
-			var re = /[[a-z\d]*@*(\.{0,1}[a-z]*)*$/i;
+			var re = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
 			returnVal = re.test(input);
 			break;
 			
