@@ -297,17 +297,17 @@ function logout()
 	// document.location.href = loginURL;
 	// // End
 
-	var jsonPayload = '{"hello" : ' + 0 + '}';
+	//var jsonPayload = '{"hello" : ' + 0 + '}';
 	var url = '/logout';
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.open("GET", url, true);
+	//xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 
 	try
 	{
-		xhr.send(jsonPayload);
+		xhr.send(null);
 	}
 	catch(err)
 	{

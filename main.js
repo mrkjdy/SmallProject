@@ -123,7 +123,7 @@ app.post('/login', function(req, res) {
 });
 
 // logout function
-app.post('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/index.html');
 });
