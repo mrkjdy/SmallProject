@@ -125,7 +125,7 @@ app.post('/login', function(req, res) {
 // logout function
 app.post('/logout', function(req, res) {
 	req.logout();
-	res.redirect('/');
+	res.redirect('/index.html');
 });
 
 // Login page
