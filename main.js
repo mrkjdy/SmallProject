@@ -1,5 +1,7 @@
+const http = require('http');
 const https = require('https');
 const express = require('express');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
@@ -18,9 +20,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.listen(PORT, function()
+const options = {
+  key: fs.readFileSync(__dirname + '/privkey.pem'),
+  cert: fs.readFileSync(__dirname + '/fullchain.pem')
+};
+
+http.createServer(app).listen(8000, function()
 {
-	console.log("Listening on " + PORT)
+	console.log("http server listening on 8000")
+});
+
+https.createServer(options, app).listen(PORT, function()
+{
+	console.log("https server listening on " + PORT)
 });
 
 // Login to database
