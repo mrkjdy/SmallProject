@@ -54,7 +54,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 	}
 }));
 passport.serializeUser(function(user, done) {
-	done(null, user.id);
+	done(null, user.UserId);
 });
 passport.deserializeUser(function(id, done) {
 	
@@ -89,6 +89,7 @@ app.post('/login', function(req, res) {
 		req.logIn(user, function(err) {
 			
 			if(err) {
+				//console.log(err);
 				return res.status(400).send('Login Error');
 			}
 			
