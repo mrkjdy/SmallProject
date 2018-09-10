@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
@@ -14,10 +14,9 @@ var path = require('path');
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.listen(PORT, function()
 {
@@ -37,34 +36,44 @@ var db = mysql.createPool({
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
-	if(checkInput(username, 'username') === true/* && checkInput(password, 'password') === true*/) {
+	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
 		
-		db.query("SELECT * FROM users WHERE Login = '" + username + "' AND Password = '" + password + "';", function(err, result) {
-			
+		db.getConnection(function(err, tempCont) {
 			if(err) {
-				return done(true, false);
+				res.status(400).send('Connetion Fail');
 			} else {
-				if(result.length === 0) return done(null, false);
-				
-				return done(null, result[0]);
+				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
+					if(err) {
+						return done(true, false);
+					} else {
+						if(result.length === 0) return done(null, false);
+						return done(null, result[0]);
+					}
+				});
 			}
 		});
 	} else {
-		
-		/*string validation error handling*/
+		return done(null, false);
 	}
 }));
 passport.serializeUser(function(user, done) {
-	done(null, user.id);
+	//console.log(user);
+	done(null, user.UserID);
 });
 passport.deserializeUser(function(id, done) {
 	
-	db.query("SELECT * FROM users WHERE UserId = " + id + ";", function(err, result) {
-			
+	db.getConnection(function(err, tempCont) {
 		if(err) {
-			/*database error handling*/
+			res.status(400).send('Connetion Fail');
 		} else {
-			done(null, result[0]);
+			tempCont.query("SELECT * FROM users WHERE UserId = ?;", [id], function(err, result) {
+				if(err) {
+					console.log(err);
+				} else {
+					console.log(result);
+					done(null, result[0]);
+				}
+			});
 		}
 	});
 });
@@ -77,8 +86,6 @@ app.post('/login', function(req, res) {
 	
 	passport.authenticate('local', function(err, user, info) {
 		
-
-		console.log('authentication complete');
 		if(err) {
 			return res.status(400).send('Database Error');
 		}
@@ -90,6 +97,7 @@ app.post('/login', function(req, res) {
 		req.logIn(user, function(err) {
 			
 			if(err) {
+				//console.log(err);
 				return res.status(400).send('Login Error');
 			}
 			
@@ -396,6 +404,7 @@ var checkInput = function(input, type, callback) {
 		case "password":
 			 var re= /[a-z\d]{32}$/;
 			 returnVal= re.test(input);
+			 break;
 			
 		case "email":
 			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
