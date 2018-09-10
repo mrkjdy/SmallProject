@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
@@ -14,10 +14,9 @@ var path = require('path');
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.listen(PORT, function()
 {
