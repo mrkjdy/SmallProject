@@ -231,7 +231,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container"><span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
 				}
 			}
 		};
