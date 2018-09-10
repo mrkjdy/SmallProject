@@ -36,7 +36,7 @@ var db = mysql.createPool({
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
-	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
+	if(checkInput(username, 'username') === true/* && checkInput(password, 'password') === true*/) {
 		
 		db.getConnection(function(err, tempCont) {
 			if(err) {
