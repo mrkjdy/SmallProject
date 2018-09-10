@@ -37,10 +37,10 @@ http.createServer(app).listen(8000, function()
 	console.log("http server listening on 8000")
 });
 
-https.createServer(options, app).listen(PORT, function()
+/*https.createServer(options, app).listen(PORT, function()
 {
 	console.log("https server listening on " + PORT)
-});
+});*/
 
 // Login to database
 var db = mysql.createPool({
