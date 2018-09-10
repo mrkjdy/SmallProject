@@ -70,6 +70,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 					}
 				});
 			}
+			tempCont.release();
 		});
 	} else {
 		return done(null, false);
@@ -93,6 +94,7 @@ passport.deserializeUser(function(id, done) {
 				}
 			});
 		}
+		tempCont.release();
 	});
 });
 
