@@ -82,7 +82,7 @@ passport.deserializeUser(function(id, done) {
 
 app.use(passport.initialize());
 app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
-
+app.use(passport.session());
 
 app.post('/login', function(req, res) {
 	
