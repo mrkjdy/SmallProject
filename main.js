@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
 const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
 // const app = express();
@@ -11,8 +14,10 @@ var path = require('path');
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.listen(PORT, function()
 {
@@ -29,9 +34,75 @@ var db = mysql.createPool({
 
 });
 
+// passport initialization
+passport.use(new LocalStrategy(function(username, password, done) {
+	
+	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
+		
+		db.query("SELECT * FROM users WHERE Login = '" + username + "' AND Password = '" + password + "';", function(err, result) {
+			
+			if(err) {
+				return done(true, false);
+			} else {
+				if(result.length === 0) return done(null, false);
+				
+				return done(null, result[0]);
+			}
+		});
+	} else {
+		
+		/*string validation error handling*/
+	}
+}));
+passport.serializeUser(function(user, done) {
+	done(null, user.id);
+});
+passport.deserializeUser(function(id, done) {
+	
+	db.query("SELECT * FROM users WHERE UserId = " + id + ";", function(err, result) {
+			
+		if(err) {
+			/*database error handling*/
+		} else {
+			done(null, result[0]);
+		}
+	});
+});
+
+app.use(passport.initialize());
+app.use(passport.session({secret: '7i5mnQZjPSqL924rQvxG'}));
+
+app.post('/login', function(req, res) {
+	
+	passport.authenticate('local', function(err, user, info) {
+		
+		if(err) {
+			return res.status(400).send('Database Error');
+		}
+		if(!user) {
+		
+			return res.send(JSON.stringify([{ "UserId": 0 }]));
+		}
+		
+		req.logIn(user, function(err) {
+			
+			if(err) {
+				return res.status(400).send('Login Error');
+			}
+			
+			return res.send(JSON.stringify([{ "UserId": 1 }]));
+		});
+	})(req, res);
+});
+
+// logout function
+app.post('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
 
 // Login page
-app.post('/login', function(req, res) {
+/*app.post('/login', function(req, res) {
 	console.log('form submitted');
 	// Create connection to database
 	db.getConnection(function(err, tempCont){
@@ -66,7 +137,7 @@ app.post('/login', function(req, res) {
 		tempCont.release();
 	
 	});
-});
+});*/
 
 
 // Register page
