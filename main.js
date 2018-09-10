@@ -124,9 +124,8 @@ app.post('/login', function(req, res) {
 
 // logout function
 app.post('/logout', function(req, res) {
-	req.logOut();
-	console.log("logged out");
-	//res.redirect('/index.html');
+	req.logout();
+	res.redirect('/index.html');
 });
 
 // Login page
