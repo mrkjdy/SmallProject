@@ -54,7 +54,8 @@ passport.use(new LocalStrategy(function(username, password, done) {
 	}
 }));
 passport.serializeUser(function(user, done) {
-	done(null, user.UserId);
+	console.log(user);
+	done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
 	
@@ -76,8 +77,6 @@ app.post('/login', function(req, res) {
 	
 	passport.authenticate('local', function(err, user, info) {
 		
-
-		console.log('authentication complete');
 		if(err) {
 			return res.status(400).send('Database Error');
 		}
