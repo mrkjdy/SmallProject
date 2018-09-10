@@ -398,12 +398,12 @@ var checkInput = function(input, type, callback) {
 			 returnVal= re.test(input);
 			
 		case "email":
-			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
+			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
 			returnVal = re.test(input);
 			break;
 
 		case "emailsearch":
-			var re = /[[a-z\d]*@*(\.{0,1}[a-z]*)*$/i;
+			var re = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
 			returnVal = re.test(input);
 			break;
 			
