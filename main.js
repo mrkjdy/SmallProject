@@ -37,7 +37,7 @@ var db = mysql.createPool({
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
-	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
+	if(checkInput(username, 'username') === true/* && checkInput(password, 'password') === true*/) {
 		
 		db.query("SELECT * FROM users WHERE Login = '" + username + "' AND Password = '" + password + "';", function(err, result) {
 			
@@ -76,6 +76,8 @@ app.post('/login', function(req, res) {
 	
 	passport.authenticate('local', function(err, user, info) {
 		
+
+		console.log('authentication complete');
 		if(err) {
 			return res.status(400).send('Database Error');
 		}
