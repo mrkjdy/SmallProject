@@ -72,7 +72,6 @@ passport.deserializeUser(function(id, done) {
 				if(err) {
 					console.log(err);
 				} else {
-					console.log(result);
 					done(null, result[0]);
 				}
 			});
@@ -281,7 +280,6 @@ app.post('/deletecontact', function(req, res) {
 // Search Contact
 app.post('/searchcontact', function(req, res) {
 
-	console.log(req);
 	// Create connection to database
 	db.getConnection(function(err, tempCont){
 			
