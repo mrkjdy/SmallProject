@@ -36,7 +36,7 @@ var db = mysql.createPool({
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
-	if(checkInput(username, 'username') === true/* && checkInput(password, 'password') === true*/) {
+	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
 		
 		db.getConnection(function(err, tempCont) {
 			if(err) {
@@ -403,6 +403,7 @@ var checkInput = function(input, type, callback) {
 		case "password":
 			 var re= /[a-z\d]{32}$/;
 			 returnVal= re.test(input);
+			 break;
 			
 		case "email":
 			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
