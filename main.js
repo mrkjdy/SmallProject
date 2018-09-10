@@ -435,6 +435,6 @@ var checkInput = function(input, type, callback) {
 //app.listen(PORT);
 
 // cert bot response
-app.get('/.well-known/acme-challenge/e7PisiiaN6y3LP2-Xj5ADSrqcDlIXN1S5uADOsUJXaU', function(req, res) {
+app.get('/.well-known/acme-challenge/47vmw6jKxviPt-z6OxY3ceszeCQs0eyzrk2dCgbT9uc', function(req, res) {
   res.sendFile('/certfile.txt')
 })
