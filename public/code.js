@@ -93,6 +93,11 @@ function addContact()
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
 
+	document.getElementById("newFirstName").value = '';
+	document.getElementById("newLastName").value = '';
+	document.getElementById("newEmail").value = '';
+	document.getElementById("newPhone").value = '';
+
 	// // Get the user id
 	// var JS = localStorage.getItem(JSONtextID);
 
@@ -133,7 +138,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				//document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
+				document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -226,7 +231,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
 				}
 			}
 		};
@@ -297,16 +302,25 @@ function logout()
 	// document.location.href = loginURL;
 	// // End
 
-	var jsonPayload = '{"hello" : ' + 0 + '}';
+	//var jsonPayload = '{"hello" : ' + 0 + '}';
+	var url = '/logout';
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.open("GET", url, true);
+	//xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 
 	try
 	{
-		xhr.send(jsonPayload);
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.location.href = loginURL;
+			}
+			
+		}
+		xhr.send(null);
 	}
 	catch(err)
 	{
