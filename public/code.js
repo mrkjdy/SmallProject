@@ -196,7 +196,7 @@ function searchContact()
         		//var JSLength = jt.length;
 				//jt = jt.substr(1, (JSLength - 2));
 
-				//console.log(jt);
+				console.log(jt);
 
 				var jsonObject = JSON.parse(jt);
 
@@ -220,7 +220,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) +')" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactId +')" class="w3-button w3-display-right">&times;</span> </li>';
 				}
 			}
 		};
@@ -235,7 +235,7 @@ function searchContact()
 	// test the function is running: alert("searchContact()");
 }
 
-function deleteContact(index)
+function deleteContact(index, id)
 {
 	// I think this is how you would acces each element on the
 	// specific row we want to delete
