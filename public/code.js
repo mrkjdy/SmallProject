@@ -47,7 +47,7 @@ function login()
 
 				var jsonObject = JSON.parse(JS);
 
-        		localStorage.setItem(JSONtextID, JS);
+        		//localStorage.setItem(JSONtextID, JS);
         		//console.log("woooooo");
     		
     			//console.log("test2");
@@ -93,27 +93,31 @@ function addContact()
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
 
-	// Get the user id
-	var JS = localStorage.getItem(JSONtextID);
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
 
-	//console.log(JS);
+	// //console.log(JS);
 
-	var uJsonObject = JSON.parse(JS);
+	// var uJsonObject = JSON.parse(JS);
 
-	//console.log(uJsonObject.UserId);
+	// //console.log(uJsonObject.UserId);
 
-	userID = uJsonObject.UserId;
-	// End
+	// userID = uJsonObject.UserId;
+	// // End
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
 	//console.log(userID);
 
 	// Create JSON pacage and send it to API
+	// var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
+	// 					+ lName + '", "email" : "' + eMail 
+	// 					+ '", "phone" : "' + pNum + '", "userid" : ' 
+	// 					+ userID + '}';
+
 	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
 						+ lName + '", "email" : "' + eMail 
-						+ '", "phone" : "' + pNum + '", "userid" : ' 
-						+ userID + '}';
+						+ '", "phone" : "' + pNum + '"}';
 
 	//console.log(jsonPayload);
 
@@ -149,17 +153,17 @@ function searchContact()
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
 
-	// Get the user id
-	var JS = localStorage.getItem(JSONtextID);
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
 
-	//console.log(JS);
+	// //console.log(JS);
 
-	var uJsonObject = JSON.parse(JS);
+	// var uJsonObject = JSON.parse(JS);
 
-	//console.log(uJsonObject.UserId);
+	// //console.log(uJsonObject.UserId);
 
-	userID = uJsonObject.UserId;
-	// End
+	// userID = uJsonObject.UserId;
+	// // End
 
 	// document.getElementById("colorSearchResult").innerHTML = "";
 
@@ -167,8 +171,10 @@ function searchContact()
 	// Clear the table
 
 	// Create JSON pacage and send it to API
-	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
-						+ userID + '}';
+	// var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
+	// 					+ userID + '}';
+	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"}';
+
 	var url = '/searchcontact';
 
 	var xhr = new XMLHttpRequest();
@@ -237,21 +243,22 @@ function searchContact()
 
 function deleteContact(index, id)
 {
-	// Get the user id
-	var JS = localStorage.getItem(JSONtextID);
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
 
-	//console.log(JS);
+	// //console.log(JS);
 
-	var uJsonObject = JSON.parse(JS);
+	// var uJsonObject = JSON.parse(JS);
 
-	//console.log(uJsonObject.UserId);
+	// //console.log(uJsonObject.UserId);
 
-	userID = uJsonObject.UserId;
-	// End
+	// userID = uJsonObject.UserId;
+	// // End
 
 	var table = document.getElementById("cTable");
 
-	var jsonPayload = '{"userid" : ' + userID + ', "contactid" : ' + id + '}';
+	//var jsonPayload = '{"userid" : ' + userID + ', "contactid" : ' + id + '}';
+	var jsonPayload = '{"contactid" : ' + id + '}';
 
 	//console.log(jsonPayload);
 
@@ -281,14 +288,30 @@ function deleteContact(index, id)
 
 function logout()
 {
-	// Return to login page and end the session
-	userID = 0;
-	firstName = "";
-	lastName = "";
-	localStorage.setItem(JSONtextID, "{UserId:0}");
+	// // Return to login page and end the session
+	// userID = 0;
+	// firstName = "";
+	// lastName = "";
+	// localStorage.setItem(JSONtextID, "{UserId:0}");
 
-	document.location.href = loginURL;
-	// End
+	// document.location.href = loginURL;
+	// // End
+
+	var jsonPayload = '{"hello" : ' + 0 + '}';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+
+	try
+	{
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+
+	}
 
 	// test the function is running: alert("logout()");
 }
