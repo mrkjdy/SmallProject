@@ -298,6 +298,7 @@ function logout()
 	// // End
 
 	var jsonPayload = '{"hello" : ' + 0 + '}';
+	var url = '/logout';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
