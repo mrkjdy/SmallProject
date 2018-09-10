@@ -36,35 +36,43 @@ var db = mysql.createPool({
 // passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
-	if(checkInput(username, 'username') === true/* && checkInput(password, 'password') === true*/) {
+	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
 		
-		db.query("SELECT * FROM users WHERE Login = '" + username + "' AND Password = '" + password + "';", function(err, result) {
-			
+		db.getConnection(function(err, tempCont) {
 			if(err) {
-				return done(true, false);
+				res.status(400).send('Connetion Fail');
 			} else {
-				if(result.length === 0) return done(null, false);
-				
-				return done(null, result[0]);
+				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
+					if(err) {
+						return done(true, false);
+					} else {
+						if(result.length === 0) return done(null, false);
+						return done(null, result[0]);
+					}
+				});
 			}
 		});
 	} else {
-		
-		/*string validation error handling*/
+		return done(null, false);
 	}
 }));
 passport.serializeUser(function(user, done) {
-	console.log(user);
+	//console.log(user);
 	done(null, user.UserID);
 });
 passport.deserializeUser(function(id, done) {
 	
-	db.query("SELECT * FROM users WHERE UserId = " + id + ";", function(err, result) {
-			
+	db.getConnection(function(err, tempCont) {
 		if(err) {
-			/*database error handling*/
+			res.status(400).send('Connetion Fail');
 		} else {
-			done(null, result[0]);
+			tempCont.query("SELECT * FROM users WHERE UserId = ?;", [id], function(err, result) {
+				if(err) {
+					/*database error handling*/
+				} else {
+					done(null, result[0]);
+				}
+			});
 		}
 	});
 });
