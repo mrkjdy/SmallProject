@@ -90,7 +90,7 @@ app.post('/login', function(req, res) {
 		req.logIn(user, function(err) {
 			
 			if(err) {
-				return res.status(404).send('Login Error');
+				return res.status(400).send('Login Error');
 			}
 			
 			return res.send(JSON.stringify([{ "UserId": 1 }]));
