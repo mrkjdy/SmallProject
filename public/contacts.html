@@ -46,7 +46,7 @@
 		  <input type="submit" id="submitSearch" class="button" value="Search"><br><br>
 		</form>
 
-		<form onsubmit="addContact()" id="addContactForm">
+		<form onsubmit="addContact(); return false" id="addContactForm">
 		  <div class="row">
 		  <input type="text" id="newFirstName" placeholder="First Name">
 		  <input type="text" id="newLastName" placeholder="Last Name">

@@ -93,6 +93,11 @@ function addContact()
 	var eMail = document.getElementById("newEmail").value;
 	var pNum = document.getElementById("newPhone").value;
 
+	document.getElementById("newFirstName").value = '';
+	document.getElementById("newLastName").value = '';
+	document.getElementById("newEmail").value = '';
+	document.getElementById("newPhone").value = '';
+
 	// // Get the user id
 	// var JS = localStorage.getItem(JSONtextID);
 
