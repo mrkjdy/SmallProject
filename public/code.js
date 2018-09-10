@@ -220,7 +220,7 @@ function searchContact()
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactId +')" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span> </li>';
 				}
 			}
 		};
@@ -237,19 +237,31 @@ function searchContact()
 
 function deleteContact(index, id)
 {
-	// I think this is how you would acces each element on the
-	// specific row we want to delete
+	// Get the user id
+	var JS = localStorage.getItem(JSONtextID);
+
+	//console.log(JS);
+
+	var uJsonObject = JSON.parse(JS);
+
+	console.log(uJsonObject.UserId);
+
+	userID = uJsonObject.UserId;
+	// End
+
 	var table = document.getElementById("cTable");
-	var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
-	var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
-	var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
-	var pNum = document.getElementById("cTable").rows[index].cells[3].innerHTML;
+	// var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
+	// var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
+	// var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
+	// var pNum = document.getElementById("cTable").rows[index].cells[3].innerHTML;
 
 	// Create JSON pacage and send it to API
-	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
-						+ lName + '", "email" : "' + eMail 
-						+ '", "phone" : "' + pNum + '", "userid" : ' 
-						+ userID + '}';
+	// var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
+	// 					+ lName + '", "email" : "' + eMail 
+	// 					+ '", "phone" : "' + pNum + '", "userid" : ' 
+	// 					+ userID + '}';
+
+	var jsonPayload = '{"userid" : ' + userID + ', "contactid" : ' + id + '}';
 
 	console.log(jsonPayload);
 
