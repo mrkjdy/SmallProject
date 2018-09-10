@@ -17,7 +17,7 @@ var path = require('path');
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.cookieParser());
+app.use(cookieParser());
 app.use(express.session({secret: '7i5mnQZjPSqL924rQvxG'}));
 app.use(passport.initialize());
 app.use(passport.session());
