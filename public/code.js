@@ -34,9 +34,9 @@ function login()
 
 	try
 	{
-		console.log("test!");
+		//console.log("test!");
 
-		console.log("test1");
+		//console.log("test1");
 
 		xhr.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
@@ -96,18 +96,18 @@ function addContact()
 	// Get the user id
 	var JS = localStorage.getItem(JSONtextID);
 
-	console.log(JS);
+	//console.log(JS);
 
 	var uJsonObject = JSON.parse(JS);
 
-	console.log(uJsonObject.UserId);
+	//console.log(uJsonObject.UserId);
 
 	userID = uJsonObject.UserId;
 	// End
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
-	console.log(userID);
+	//console.log(userID);
 
 	// Create JSON pacage and send it to API
 	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
@@ -115,7 +115,7 @@ function addContact()
 						+ '", "phone" : "' + pNum + '", "userid" : ' 
 						+ userID + '}';
 
-	console.log(jsonPayload);
+	//console.log(jsonPayload);
 
 	var url = '/addcontact';
 
@@ -133,7 +133,7 @@ function addContact()
 			}
 		};
 		xhr.send(jsonPayload);
-		console.log("payload sent");
+		//console.log("payload sent");
 	}
 	catch(err)
 	{
@@ -156,7 +156,7 @@ function searchContact()
 
 	var uJsonObject = JSON.parse(JS);
 
-	console.log(uJsonObject.UserId);
+	//console.log(uJsonObject.UserId);
 
 	userID = uJsonObject.UserId;
 	// End
@@ -188,7 +188,7 @@ function searchContact()
 				{
 					table.deleteRow(table.rows.length - 1);
 				}
-				console.log(table.rows.length);
+				//console.log(table.rows.length);
 
 				//console.log(this.responseText);
 
@@ -196,7 +196,7 @@ function searchContact()
         		//var JSLength = jt.length;
 				//jt = jt.substr(1, (JSLength - 2));
 
-				console.log(jt);
+				//console.log(jt);
 
 				var jsonObject = JSON.parse(jt);
 
@@ -244,26 +244,16 @@ function deleteContact(index, id)
 
 	var uJsonObject = JSON.parse(JS);
 
-	console.log(uJsonObject.UserId);
+	//console.log(uJsonObject.UserId);
 
 	userID = uJsonObject.UserId;
 	// End
 
 	var table = document.getElementById("cTable");
-	// var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
-	// var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
-	// var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
-	// var pNum = document.getElementById("cTable").rows[index].cells[3].innerHTML;
-
-	// Create JSON pacage and send it to API
-	// var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
-	// 					+ lName + '", "email" : "' + eMail 
-	// 					+ '", "phone" : "' + pNum + '", "userid" : ' 
-	// 					+ userID + '}';
 
 	var jsonPayload = '{"userid" : ' + userID + ', "contactid" : ' + id + '}';
 
-	console.log(jsonPayload);
+	//console.log(jsonPayload);
 
 	var url = '/deletecontact';
 
@@ -274,7 +264,7 @@ function deleteContact(index, id)
 	try
 	{
 		xhr.send(jsonPayload);
-		console.log("payload sent");
+		//console.log("payload sent");
 	}
 	catch(err)
 	{
