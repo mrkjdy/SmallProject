@@ -80,7 +80,7 @@ app.post('/login', function(req, res) {
 
 		console.log('authentication complete');
 		if(err) {
-			return res.status(400).send('Database Error');
+			return res.status(404).send('Database Error');
 		}
 		if(!user) {
 		
@@ -90,7 +90,7 @@ app.post('/login', function(req, res) {
 		req.logIn(user, function(err) {
 			
 			if(err) {
-				return res.status(400).send('Login Error');
+				return res.status(404).send('Login Error');
 			}
 			
 			return res.send(JSON.stringify([{ "UserId": 1 }]));
