@@ -433,3 +433,8 @@ var checkInput = function(input, type, callback) {
 }
 
 //app.listen(PORT);
+
+// cert bot response
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+  res.send('xxxxxxxxxxxx-yyyy.zzzzzzzzzzzzzzzzzzz')
+})
