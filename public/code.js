@@ -307,6 +307,14 @@ function logout()
 
 	try
 	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.location.href = loginURL;
+			}
+			
+		}
 		xhr.send(null);
 	}
 	catch(err)
