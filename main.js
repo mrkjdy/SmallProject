@@ -68,8 +68,9 @@ passport.deserializeUser(function(id, done) {
 		} else {
 			tempCont.query("SELECT * FROM users WHERE UserId = ?;", [id], function(err, result) {
 				if(err) {
-					/*database error handling*/
+					console.log(err);
 				} else {
+					console.log(result);
 					done(null, result[0]);
 				}
 			});
@@ -406,7 +407,7 @@ var checkInput = function(input, type, callback) {
 			 break;
 			
 		case "email":
-			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
+			var re = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i; // Format 1-20 character @ 1-10 characters . extension
 			returnVal = re.test(input);
 			break;
 
