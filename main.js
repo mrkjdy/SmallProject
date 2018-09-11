@@ -1,7 +1,4 @@
-const http = require('http');
-const https = require('https');
 const express = require('express');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
@@ -11,7 +8,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
-// const app = express();
 
 // body-parser initialization
 app.use(bodyParser.json());
@@ -27,25 +23,12 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-const options = {
-  key: fs.readFileSync(__dirname + '/privkey.pem'),
-  cert: fs.readFileSync(__dirname + '/fullchain.pem')
-};
-
+// server creation
 app.listen(PORT, function()
 {
 	console.log("Listening on " + PORT)
 });
 
-// http.createServer(app).listen(8000, function()
-// {
-// 	console.log("http server listening on 8000")
-// });
-
-// https.createServer(options, app).listen(PORT, function()
-// {
-// 	console.log("https server listening on " + PORT)
-// });
 
 // Login to database
 var db = mysql.createPool({
