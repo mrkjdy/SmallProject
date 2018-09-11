@@ -126,11 +126,11 @@ app.get('/logout', function(req, res) {
 
 
 // Routing functions
-server.get('/', function(req, res) {
+app.get('/', function(req, res) {
 	res.sendFile('index.html');
 });
 
-server.get('/contacts', function(req, res) {
+app.get('/contacts', function(req, res) {
 	if(req.user) {
 		sendFile('contacts.html');
 	} else {
