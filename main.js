@@ -51,10 +51,11 @@ passport.use(new LocalStrategy(function(username, password, done) {
 		
 		db.getConnection(function(err, tempCont) {
 			if(err) {
-				res.status(400).send('Connetion Fail');
+				return done(null, false);
 			} else {
 				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
 					if(err) {
+						console.log(err);
 						return done(true, false);
 					} else {
 						if(result.length === 0) return done(null, false);
@@ -127,15 +128,20 @@ app.get('/logout', function(req, res) {
 
 // Routing functions
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/public/index.html');
+	res.sendFile(__dirname + '/html/index.html');
 });
 
 app.get('/contacts', function(req, res) {
 	if(req.user) {
-		res.sendFile(__dirname + '/public/contacts.html');
+		res.sendFile(__dirname + '/html/contacts.html');
 	} else {
 		res.redirect('/');
 	}
+});
+
+// Serves 404 page for invalid requests
+app.get('*', function(req, res) {
+	res.status(404).send('Page not found');
 });
 
 // Register function
