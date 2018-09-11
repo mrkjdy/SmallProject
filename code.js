@@ -1,17 +1,16 @@
-var APIRoot = 'http://small-project-cop4331.herokuapp.com'; 
+var APIRoot = 'https://small-project-cop4331.herokuapp.com'; 
 var fileExtension = '.js'; 
 var contactsURL = 'contacts.html';
 var loginURL = 'index.html';
 
 var userID = 0;
-var firstName = "";
-var lastName = "";
+var firstName = '';
+var lastName = '';
+
+var JSONtextID = '';
 
 function login()
 {
-	userID = 0;
-	firstName = 0;
-	lastName = 0;
 
 	var user = document.getElementById("uName").value;
 	var pass = document.getElementById("pWord").value;
@@ -25,7 +24,9 @@ function login()
 
 	// Create JSON pacage 
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
-	var url = APIRoot + "/main.js"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
+	var url = "/login"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
+
+	//alert(jsonPayload);
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -33,28 +34,48 @@ function login()
 
 	try
 	{
+		//console.log("test!");
+
+		//console.log("test1");
+
+		xhr.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+
+        		var JS = this.responseText;
+        		var JSLength = JS.length;
+				JS = JS.substr(1, (JSLength - 2));
+
+				var jsonObject = JSON.parse(JS);
+
+        		//localStorage.setItem(JSONtextID, JS);
+        		//console.log("woooooo");
+    		
+    			//console.log("test2");
+
+				userID = jsonObject.UserId;
+
+				//localStorage.setItem(jsonObject.UserID, userID);
+
+				//check wether login was succesfull
+				if (userID == 0)
+				{
+					document.getElementById("submitMessage").innerHTML = "User or Password incorrect";
+					return;
+				}
+
+				// firstName = jsonObject.firstName;
+				// lastName = jsonObject.lastName;
+
+				document.getElementById("uName").value = "";
+				document.getElementById("pWord").value = "";
+
+				// redirection code
+				document.location.href = contactsURL;
+			}
+		};
+
 		// send pacage to API
 		xhr.send(jsonPayload);
-
-		var jsonObject = JSON.parse(xhr.responseText);
-
-		userID = jsonObject.UserID;
-
-		//check wether login was succesfull
-		if (userID < 1)
-		{
-			document.getElementById("submitMessage").innerHTML = "User or Password incorrect";
-			return;
-		}
-
-		// firstName = jsonObject.firstName;
-		// lastName = jsonObject.lastName;
-
-		document.getElementById("uName").value = "";
-		document.getElementById("pWord").value = "";
-
-		// redirection code
-		document.location.href = contactsURL;
 	}
 	catch(err)
 	{
@@ -67,20 +88,45 @@ function login()
 
 function addContact()
 {
-	var fName = document.getElementById("fName").value;
-	var lName = document.getElementById("lName").value;
-	var eMail = document.getElementById("eMail").value;
-	var pNum = document.getElementById("pNum").value;
+	var fName = document.getElementById("newFirstName").value;
+	var lName = document.getElementById("newLastName").value;
+	var eMail = document.getElementById("newEmail").value;
+	var pNum = document.getElementById("newPhone").value;
+
+	document.getElementById("newFirstName").value = '';
+	document.getElementById("newLastName").value = '';
+	document.getElementById("newEmail").value = '';
+	document.getElementById("newPhone").value = '';
+
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
+
+	// //console.log(JS);
+
+	// var uJsonObject = JSON.parse(JS);
+
+	// //console.log(uJsonObject.UserId);
+
+	// userID = uJsonObject.UserId;
+	// // End
 
 	// document.getElementById("contactAddResult").innerHTML = "";
 
+	//console.log(userID);
+
 	// Create JSON pacage and send it to API
+	// var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
+	// 					+ lName + '", "email" : "' + eMail 
+	// 					+ '", "phone" : "' + pNum + '", "userid" : ' 
+	// 					+ userID + '}';
+
 	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
 						+ lName + '", "email" : "' + eMail 
-						+ '", "phone" : "' + pNum + '"userid" : "' 
-						+ userID + '"}';
+						+ '", "phone" : "' + pNum + '"}';
 
-	var url = APIRoot + '/addcontact'; // + fileExtension;
+	//console.log(jsonPayload);
+
+	var url = '/addcontact';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -92,10 +138,11 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				//document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
+				document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
 			}
 		};
 		xhr.send(jsonPayload);
+		//console.log("payload sent");
 	}
 	catch(err)
 	{
@@ -111,15 +158,29 @@ function searchContact()
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
 
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
+
+	// //console.log(JS);
+
+	// var uJsonObject = JSON.parse(JS);
+
+	// //console.log(uJsonObject.UserId);
+
+	// userID = uJsonObject.UserId;
+	// // End
+
 	// document.getElementById("colorSearchResult").innerHTML = "";
 
 	var contactTable = document.getElementById("cTable");
 	// Clear the table
 
 	// Create JSON pacage and send it to API
-	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"userid" : "' 
-						+ userID + '"}';
-	var url = APIRoot + '/searchcontact'; // + fileExtension;
+	// var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
+	// 					+ userID + '}';
+	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"}';
+
+	var url = '/searchcontact';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -134,34 +195,43 @@ function searchContact()
 				var table = document.getElementById("cTable");
 
 				// clear the table
-				while (table.length > 1)
+				while (table.rows.length > 1)
 				{
-					table.deleteRow(table.length - 1);
+					table.deleteRow(table.rows.length - 1);
 				}
+				//console.log(table.rows.length);
 
-				var jsonObject = JSON.parse(xhr.responseText);
+				//console.log(this.responseText);
+
+				var jt = this.responseText;
+        		//var JSLength = jt.length;
+				//jt = jt.substr(1, (JSLength - 2));
+
+				//console.log(jt);
+
+				var jsonObject = JSON.parse(jt);
 
 				// create the fields in the table 
 				for(var i = 0; i < jsonObject.length; i++)
 				{
 					// create a new row
-					var newRow = table.insertRow(table.length);
+					var newRow = table.insertRow(table.rows.length);
 
 					// create a new cell
 					var cell = newRow.insertCell(0);
 					// add value to the cell
-					cell.innerHTML = jsonObject[i].firstname;
+					cell.innerHTML = jsonObject[i].FirstName;
 
 					cell = newRow.insertCell(1);
-					cell.innerHTML = jsonObject[i].lastname;
+					cell.innerHTML = jsonObject[i].LastName;
 					cell = newRow.insertCell(2);
-					cell.innerHTML = jsonObject[i].email;
+					cell.innerHTML = jsonObject[i].Email;
 					cell = newRow.insertCell(3);
-					cell.innerHTML = jsonObject[i].phone;
+					cell.innerHTML = jsonObject[i].PhoneNumber;
 					cell = newRow.insertCell(4);
 
 					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<li class="w3-display-container">ListItem1 <span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-display-right">&times;</span> </li>';
+					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
 				}
 			}
 		};
@@ -176,22 +246,28 @@ function searchContact()
 	// test the function is running: alert("searchContact()");
 }
 
-function deleteContact(index)
+function deleteContact(index, id)
 {
-	// I think this is how you would acces each element on the
-	// specific row we want to delete
-	var fName = document.getElementById("cTable").rows[index].cells[0].innerHTML;
-	var lName = document.getElementById("cTable").rows[index].cells[1].innerHTML;
-	var eMail = document.getElementById("cTable").rows[index].cells[2].innerHTML;
-	var pNum = document.getElementById("cTable").rows[index].cells[3].innerHTML;
+	// // Get the user id
+	// var JS = localStorage.getItem(JSONtextID);
 
-	// Create JSON pacage and send it to API
-	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
-						+ lName + '", "email" : "' + eMail 
-						+ '", "phone" : "' + pNum + '"userid" : "' 
-						+ userID + '"}';
+	// //console.log(JS);
 
-	var url = APIRoot + '/deletecontact'; // + fileExtension;
+	// var uJsonObject = JSON.parse(JS);
+
+	// //console.log(uJsonObject.UserId);
+
+	// userID = uJsonObject.UserId;
+	// // End
+
+	var table = document.getElementById("cTable");
+
+	//var jsonPayload = '{"userid" : ' + userID + ', "contactid" : ' + id + '}';
+	var jsonPayload = '{"contactid" : ' + id + '}';
+
+	//console.log(jsonPayload);
+
+	var url = '/deletecontact';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -200,6 +276,7 @@ function deleteContact(index)
 	try
 	{
 		xhr.send(jsonPayload);
+		//console.log("payload sent");
 	}
 	catch(err)
 	{
@@ -216,13 +293,39 @@ function deleteContact(index)
 
 function logout()
 {
-	// Return to login page and end the session
-	userID = 0;
-	firstName = "";
-	lastName = "";
+	// // Return to login page and end the session
+	// userID = 0;
+	// firstName = "";
+	// lastName = "";
+	// localStorage.setItem(JSONtextID, "{UserId:0}");
 
-	document.location.href = loginURL;
-	// End
+	// document.location.href = loginURL;
+	// // End
+
+	//var jsonPayload = '{"hello" : ' + 0 + '}';
+	var url = '/logout';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	//xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.location.href = loginURL;
+			}
+			
+		}
+		xhr.send(null);
+	}
+	catch(err)
+	{
+
+	}
 
 	// test the function is running: alert("logout()");
 }
@@ -250,7 +353,7 @@ function createAccount()
 
 	// Check if username available
 	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 + '"}';
-	var url = APIRoot + '/register'; //+ fileExtension;
+	var url = '/register'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -258,13 +361,21 @@ function createAccount()
 
 	try
 	{
-		xhr.send(jsonPayload);
 
-		if (this.status == 400)
+		xhr.onreadystatechange = function() 
 		{
-			// change the user
-			return;
-		}
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("uName").value = user;
+				document.getElementById("pWord").value = newPWord2;
+				login();
+			}
+			else if (this.status == 400)
+			{
+				document.getElementById("submitMessage").innerHTML = "Username already used";
+			}
+		};
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -272,9 +383,6 @@ function createAccount()
 	}
 
 	// set username and password then login
-	document.getElementById("uName").value = user;
-	document.getElementById("pWord").value = newPWord1;
-	login();
 }
 
 function showCreateAccount()
