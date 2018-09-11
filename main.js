@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
+var router = express.Router();
 
 
 // Body-parser initialization
