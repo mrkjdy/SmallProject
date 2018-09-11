@@ -405,6 +405,14 @@ app.post('/searchcontact', function(req, res) {
 	});
 });
 
+app.get('/contacts.html', function(req, res) {
+	if(req.user) {
+		res.sendFile('contacts.html');
+	} else {
+		res.redirect('/index.html');
+	}
+});
+
 //Check for valid inputs
 var checkInput = function(input, type, callback) {
 	
