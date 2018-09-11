@@ -13,6 +13,8 @@ var app = express();
 var path = require('path');
 // const app = express();
 
+app.use(app.router);
+
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
