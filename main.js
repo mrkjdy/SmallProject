@@ -55,9 +55,13 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			} else {
 				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
 					if(err) {
+						console.log('login database error');
 						return done(true, false);
 					} else {
-						if(result.length === 0) return done(null, false);
+						if(result.length === 0) {
+							console.log('login not found error');
+							return done(null, false);
+						}
 						
 						tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result) {
 							if(err) console.log(err);
