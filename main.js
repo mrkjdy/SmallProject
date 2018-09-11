@@ -13,8 +13,6 @@ var app = express();
 var path = require('path');
 // const app = express();
 
-app.use(app.router);
-
 // body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -407,7 +405,7 @@ app.post('/searchcontact', function(req, res) {
 	});
 });
 
-app.get('/contacts.html', function(req, res) {
+router.get('/contacts.html', function(req, res) {
 	if(req.user) {
 		res.sendFile('contacts.html');
 	} else {
