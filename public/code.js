@@ -336,6 +336,8 @@ function logout()
 
 function createAccount()
 {
+	var fName = document.getElementById("newFName").value;
+	var lName = document.getElementById("newLName").value;
 	var user = document.getElementById("newUName").value;
 	var newPWord1 = document.getElementById("newPWord1").value;
 	var newPWord2 = document.getElementById("newPword2").value;
@@ -356,7 +358,9 @@ function createAccount()
 	newPWord1 = calcMD5(newPWord1);
 
 	// Check if username available
-	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 + '"}';
+	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 
+						+ '", "firstname" : "' + fName + '", "lastname" : "'
+						+ lName + '"}';
 	var url = '/register'; //+ fileExtension;
 
 	var xhr = new XMLHttpRequest();
