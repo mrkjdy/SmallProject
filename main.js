@@ -62,7 +62,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 							console.log('login not found error');
 							return done(null, false);
 						} else {
-							tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result) {
+							tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result1) {
 								if(err) console.log(err);
 								return done(null, result[0]);
 							});
@@ -78,7 +78,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-	//console.log(user);
 	done(null, user.UserID);
 });
 passport.deserializeUser(function(id, done) {
