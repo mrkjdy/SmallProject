@@ -55,11 +55,14 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			} else {
 				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
 					if(err) {
-						console.log(err);
 						return done(true, false);
 					} else {
 						if(result.length === 0) return done(null, false);
-						return done(null, result[0]);
+						
+						tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result) {
+							if(err) console.log(err);
+							return done(null, result[0]);
+						});
 					}
 				});
 			}
