@@ -61,12 +61,12 @@ passport.use(new LocalStrategy(function(username, password, done) {
 						if(result.length === 0) {
 							console.log('login not found error');
 							return done(null, false);
+						} else {
+							tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result) {
+								if(err) console.log(err);
+								return done(null, result[0]);
+							});
 						}
-						
-						tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result) {
-							if(err) console.log(err);
-							return done(null, result[0]);
-						});
 					}
 				});
 			}
