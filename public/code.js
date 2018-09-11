@@ -88,6 +88,8 @@ function login()
 
 function addContact()
 {
+	document.getElementById("contactAddResult").innerHTML = "";
+
 	var fName = document.getElementById("newFirstName").value;
 	var lName = document.getElementById("newLastName").value;
 	var eMail = document.getElementById("newEmail").value;
@@ -146,7 +148,7 @@ function addContact()
 	}
 	catch(err)
 	{
-		//document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	// End
 
@@ -155,6 +157,8 @@ function addContact()
 
 function searchContact()
 {
+	document.getElementById("contactAddResult").innerHTML = "";
+	
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
 
