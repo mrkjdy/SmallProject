@@ -170,7 +170,7 @@ app.get('/logout', function(req, res) {
 app.post('/register', function(req, res) {
 	
 	// Check if correct format
-	if(checkInput(req.body.username, "username")) {
+	if(checkInput(req.body.username, "username") && checkInput(req.body.firstname, "name") && checkInput(req.body.lastname, "name")) {
 		
 		// Create connection to database
 		db.getConnection(function(err, tempCont){
@@ -195,8 +195,8 @@ app.post('/register', function(req, res) {
 					
 						} else {			
 							// Add user to database
-							const sqlAddUser = "INSERT INTO users (DateCreated, DateLastLoggedIn, Login, Password) VALUES (";
-							tempCont.query(sqlAddUser + "NOW(), NOW(), '" + req.body.username + "', '" + req.body.password + "')", function(err, result) {
+							const sqlAddUser = "INSERT INTO users (DateCreated, DateLastLoggedIn, Login, Password, FirstName, LastName) VALUES (";
+							tempCont.query(sqlAddUser + "NOW(), NOW(), '" + req.body.username + "', '" + req.body.password + "', '" + req.body.firstname + "', '" + req.body.lastname + "')", function(err, result) {
 							
 								// Check if query works
 								if(err) {
@@ -356,7 +356,7 @@ app.post('/searchcontact', function(req, res) {
 				case "phone":
 					
 					// Check if correct format
-					if(checkInput(req.body.value, req.body.type)) {
+					if(checkInput(req.body.value, "phonesearch")) {
 							
 						// Search for phone number in database
 						tempCont.query("SELECT * FROM contact WHERE UserID = ? AND PhoneNumber LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result){
@@ -413,7 +413,7 @@ var checkInput = function(input, type, callback) {
 	switch(type) {
 		
 		case "username":
-			var re = /^[a-z|\d]{5,20}$/i; // Format 5-20 characters and digit
+			var re = /^[a-z|\d]{1,20}$/i; // Format 5-20 characters and digit
 			returnVal = re.test(input);
 			break;
 
@@ -440,8 +440,12 @@ var checkInput = function(input, type, callback) {
 		case "phone":
 			var re = /(1){0,1}\d{10}$/i; // Format 18004445555 | 4074445555
 			var number = input.replace(/[^\d]/g, '');
-			
 			returnVal = re.test(number);
+			break;
+
+		case "phonesearch":
+			var re = /\d{1,11}$/;
+			returnVal = re.test(input);
 			break;
 		
 		default:
