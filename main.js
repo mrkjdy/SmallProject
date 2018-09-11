@@ -132,7 +132,7 @@ app.get('/', function(req, res) {
 
 app.get('/contacts', function(req, res) {
 	if(req.user) {
-		sendFile('contacts.html');
+		res.sendFile('contacts.html');
 	} else {
 		res.redirect('/');
 	}
