@@ -127,12 +127,12 @@ app.get('/logout', function(req, res) {
 
 // Routing functions
 app.get('/', function(req, res) {
-	res.sendFile('index.html');
+	res.sendFile(__dirname + 'index.html');
 });
 
 app.get('/contacts', function(req, res) {
 	if(req.user) {
-		res.sendFile('contacts.html');
+		res.sendFile(__dirname + 'contacts.html');
 	} else {
 		res.redirect('/');
 	}
