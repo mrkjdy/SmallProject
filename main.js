@@ -393,6 +393,28 @@ app.post('/searchcontact', function(req, res) {
 });
 
 
+// Get all user contacts
+app.post('/getallcontact', function(req, res) {
+	if(req.user) {
+		db.getConnection(function(err, tempCont) {
+			if(err) {
+				res.status(400).send('Database connection error');
+			} else {
+				tempCont.query("SELECT * FROM contact WHERE UserID = ?;", [req.user.UserID], function(err, result) {
+					if(err) {
+						res.status(400).send('Database query error');
+					} else {
+						res.send(result);
+					}
+				});
+			}
+		});
+	} else {
+		res.status(400).send('User not logged in');
+	}
+});
+
+
 //Check for valid inputs
 var checkInput = function(input, type, callback) {
 	
