@@ -412,6 +412,7 @@ app.post('/getallcontact', function(req, res) {
 	} else {
 		res.status(400).send('User not logged in');
 	}
+	tempCont.release();
 });
 
 
