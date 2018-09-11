@@ -1,7 +1,4 @@
-const http = require('http');
-const https = require('https');
 const express = require('express');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const PORT = process.env.PORT || 5000;
@@ -11,9 +8,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
-// const app = express();
 
-// body-parser initialization
+
+// Body-parser initialization
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
@@ -24,25 +21,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+// Sets directory for files to serve (files not in this directory will not be served)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
-const options = {
-  key: fs.readFileSync(__dirname + '/privkey.pem'),
-  cert: fs.readFileSync(__dirname + '/fullchain.pem')
-};
 
-/*http.createServer(app).listen(8000, function()
+// Creates the server
+app.listen(PORT, function()
 {
-	console.log("http server listening on 8000")
+	console.log("Listening on " + PORT)
 });
 
-/*https.createServer(options, app).listen(PORT, function()
-{
-	console.log("https server listening on " + PORT)
-});*/
 
-// Login to database
+// Database connection info
 var db = mysql.createPool({
 	connectionLimit: 10,
 	host     : 'us-cdbr-iron-east-01.cleardb.net',
@@ -52,7 +44,8 @@ var db = mysql.createPool({
 
 });
 
-// passport initialization
+
+// Passport initialization
 passport.use(new LocalStrategy(function(username, password, done) {
 	
 	if(checkInput(username, 'username') === true && checkInput(password, 'password') === true) {
@@ -76,6 +69,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 		return done(null, false);
 	}
 }));
+
 passport.serializeUser(function(user, done) {
 	//console.log(user);
 	done(null, user.UserID);
@@ -98,6 +92,8 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+
+// Login function
 app.post('/login', function(req, res) {
 	
 	passport.authenticate('local', function(err, user, info) {
@@ -122,51 +118,15 @@ app.post('/login', function(req, res) {
 	})(req, res);
 });
 
-// logout function
+
+// Logout function
 app.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/index.html');
 });
 
-// Login page
-/*app.post('/login', function(req, res) {
-	console.log('form submitted');
-	// Create connection to database
-	db.getConnection(function(err, tempCont){
-			
-		// Check if correct format
-		if(checkInput(req.body.value, "username")) {
-						
-			// Search for username and password in database
-			tempCont.query("SELECT UserId FROM users WHERE Login = ? AND Password = ?", [req.body.username, req.body.password], function(err, result) { //Check why bolded
-				
-				res.setHeader('Content-Type', 'application/json');
 
-				// Check if query works
-				if (err) {
-					res.status(400).send('Query Fail');
-				} else {
-						
-					// Check if username and password is in the database
-					if(result == "") {
-						res.send(JSON.stringify([{ "UserId": 0 }]));
-					} else {
-						res.send(result);
-					}	
-				}				        
-			});				
-				
-		} else {
-			res.status(400).send('Invalid Values');
-		}
-			
-		// End connection
-		tempCont.release();
-	
-	});
-});*/
-
-// Register page
+// Register function
 app.post('/register', function(req, res) {
 	
 	// Check if correct format
@@ -221,7 +181,8 @@ app.post('/register', function(req, res) {
 
 });
 
-// Add contact page
+
+// Add contact function
 app.post('/addcontact', function(req, res) { 
 	
 	// Check if correct format
@@ -259,7 +220,8 @@ app.post('/addcontact', function(req, res) {
 	}
 });
 
-// Delete Contact
+
+// Delete contact function
 app.post('/deletecontact', function(req, res) {
 
 	// Create connection to database
@@ -292,7 +254,8 @@ app.post('/deletecontact', function(req, res) {
 	});
 });
 
-// Search Contact
+
+// Search contact function
 app.post('/searchcontact', function(req, res) {
 
 	// Create connection to database
@@ -405,6 +368,8 @@ app.post('/searchcontact', function(req, res) {
 	});
 });
 
+
+// GET for displaying contacts.html
 router.get('/contacts.html', function(req, res) {
 	if(req.user) {
 		res.sendFile('contacts.html');
@@ -412,6 +377,7 @@ router.get('/contacts.html', function(req, res) {
 		res.redirect('/index.html');
 	}
 });
+
 
 //Check for valid inputs
 var checkInput = function(input, type, callback) {
@@ -468,5 +434,3 @@ var checkInput = function(input, type, callback) {
 		callback(returnVal);
 	}
 }
-
-app.listen(PORT);
