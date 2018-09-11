@@ -8,8 +8,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
-var router = express.Router();
-
 
 // Body-parser initialization
 app.use(bodyParser.json());
@@ -123,9 +121,22 @@ app.post('/login', function(req, res) {
 // Logout function
 app.get('/logout', function(req, res) {
 	req.logout();
-	res.redirect('/index.html');
+	res.redirect('/');
 });
 
+
+// Routing functions
+server.get('/', function(req, res) {
+	res.sendFile('index.html');
+});
+
+server.get('/contacts', function(req, res) {
+	if(req.user) {
+		sendFile('contacts.html');
+	} else {
+		res.redirect('/');
+	}
+});
 
 // Register function
 app.post('/register', function(req, res) {
@@ -367,16 +378,6 @@ app.post('/searchcontact', function(req, res) {
 		// End connection
 		tempCont.release();
 	});
-});
-
-
-// GET for displaying contacts.html
-router.get('/contacts.html', function(req, res) {
-	if(req.user) {
-		res.sendFile('contacts.html');
-	} else {
-		res.redirect('/index.html');
-	}
 });
 
 
