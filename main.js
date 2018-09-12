@@ -315,8 +315,7 @@ app.post('/searchcontact', function(req, res) {
 						res.send(result);	
 					}
 				});
-					
-				break;
+
 			} else {		
 			
 				switch(req.body.type) {
