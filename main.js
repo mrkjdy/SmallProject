@@ -305,6 +305,22 @@ app.post('/searchcontact', function(req, res) {
 		} else {
 				
 			switch(req.body.type) {
+				
+				// Searching all
+				case "":
+					
+					// Search by user id
+					tempCont.query("SELECT * FROM contact WHERE UserID = ?",[req.user.UserID], function(err, result) {
+						
+						// Check if query works
+						if(err) {
+							res.status(400).send('Query Fail');
+						} else {
+							res.send(result);	
+						}
+					});
+					
+					break;
 					
 				// Searching by first name
 				case "firstname":
