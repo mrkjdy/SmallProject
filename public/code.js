@@ -88,66 +88,68 @@ function login()
 
 function getContacts()
 {
-	var url = '/getallcontact';
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	
-	try
-	{
-		xhr.onreadystatechange = function() 
+	if(window.location.pathname.localeCompare('/contacts') === 0) {
+		var url = '/getallcontact';
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			xhr.onreadystatechange = function() 
 			{
-				var table = document.getElementById("cTable");
-
-				// clear the table
-				while (table.rows.length > 1)
+				if (this.readyState == 4 && this.status == 200) 
 				{
-					table.deleteRow(table.rows.length - 1);
-				}
-				//console.log(table.rows.length);
+					var table = document.getElementById("cTable");
 
-				//console.log(this.responseText);
+					// clear the table
+					while (table.rows.length > 1)
+					{
+						table.deleteRow(table.rows.length - 1);
+					}
+					//console.log(table.rows.length);
 
-				var jt = this.responseText;
-        		//var JSLength = jt.length;
-				//jt = jt.substr(1, (JSLength - 2));
+					//console.log(this.responseText);
 
-				//console.log(jt);
+					var jt = this.responseText;
+					//var JSLength = jt.length;
+					//jt = jt.substr(1, (JSLength - 2));
 
-				var jsonObject = JSON.parse(jt);
+					//console.log(jt);
 
-				// create the fields in the table 
-				for(var i = 0; i < jsonObject.length; i++)
-				{
-					// create a new row
-					var newRow = table.insertRow(table.rows.length);
+					var jsonObject = JSON.parse(jt);
 
-					// create a new cell
-					var cell = newRow.insertCell(0);
-					// add value to the cell
-					cell.innerHTML = jsonObject[i].FirstName;
+					// create the fields in the table 
+					for(var i = 0; i < jsonObject.length; i++)
+					{
+						// create a new row
+						var newRow = table.insertRow(table.rows.length);
 
-					cell = newRow.insertCell(1);
-					cell.innerHTML = jsonObject[i].LastName;
-					cell = newRow.insertCell(2);
-					cell.innerHTML = jsonObject[i].Email;
-					cell = newRow.insertCell(3);
-					cell.innerHTML = jsonObject[i].PhoneNumber;
-					cell = newRow.insertCell(4);
+						// create a new cell
+						var cell = newRow.insertCell(0);
+						// add value to the cell
+						cell.innerHTML = jsonObject[i].FirstName;
 
-					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
+						cell = newRow.insertCell(1);
+						cell.innerHTML = jsonObject[i].LastName;
+						cell = newRow.insertCell(2);
+						cell.innerHTML = jsonObject[i].Email;
+						cell = newRow.insertCell(3);
+						cell.innerHTML = jsonObject[i].PhoneNumber;
+						cell = newRow.insertCell(4);
+
+						// Creates the X button to delete the contact TODO: revise
+						cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
+					}
 				}
 			}
+			xhr.send();
 		}
-		xhr.send();
-	}
-	catch(err)
-	{
-		
+		catch(err)
+		{
+			
+		}
 	}
 }
 
