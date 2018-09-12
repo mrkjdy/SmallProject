@@ -229,7 +229,7 @@ app.post('/addcontact', function(req, res) {
 					if (err) {
 						res.status(400).send('Query Fail');				
 					} else {
-						res.status(200).send('Query Success');					
+						res.status(200).send(result);					
 					}
 					
 					// End connection
