@@ -303,100 +303,116 @@ app.post('/searchcontact', function(req, res) {
 			res.status(400).send('Connection fail');
 				
 		} else {
-				
-			switch(req.body.type) {
-				
-				// Searching by first name
-				case "firstname":
-					
-					// Check if correct format
-					if(checkInput(req.body.value, "name")) {
-							
-						// Search for first name in database
-						tempCont.query("SELECT * FROM contact WHERE UserID = ? AND FirstName LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
-								
-							// Check if query works
-							if (err) {
-								res.status(400).send('Query Fail');
-							} else {
-								res.send(result);
-							}				        
-						});				
-					
-					} else {
-						res.status(400).send('Invalid Values');
-					}	
+			
+			if(req.body.value == ""){
+				// Search by user id
+				tempCont.query("SELECT * FROM contact WHERE UserID = ?",[req.user.UserID], function(err, result) {
 						
-					break;
-						
-				// Searching by last name
-				case "lastname":
-					
-					// Check if correct format
-					if(checkInput(req.body.value, "name")) {
-							
-						// Search for last name in database
-						tempCont.query("SELECT * FROM contact WHERE UserID = ? AND LastName LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
-								
-							// Check if query fail
-							if (err) {
-								res.status(400).send('Query Fail');
-							} else {
-								res.send(result);
-							}			        
-						});	
-					
+					// Check if query works
+					if(err) {
+						res.status(400).send('Query Fail');
 					} else {
-						res.status(400).send('Invalid Values');
+						res.send(result);	
 					}
-						
-					break;
-						
-				// Searching by phone number
-				case "phone":
+				});
 					
-					// Check if correct format
-					if(checkInput(req.body.value, "phonesearch")) {
-							
-						// Search for phone number in database
-						tempCont.query("SELECT * FROM contact WHERE UserID = ? AND PhoneNumber LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result){
-								
-							// Check if query works
-							if (err) {
-								res.status(400).send('Query Fail');
-							} else {
-								res.send(result);
-							}
-						});
-					
-					} else {
-						res.status(400).send('Invalid Values');
-					}
-						
-					break;
-						
-				// Searching by email
-				default:
-					
-					// Check if correct format
-					if(checkInput(req.body.value, "emailsearch")) {
-							
-						// Search for email in database
-						tempCont.query("SELECT * FROM contact WHERE UserID = ? AND Email LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
-								
-							// Check if query works
-							if (err) {
-								res.status(400).send('Query Fail');
-							} else {
-								res.send(result);
-							}      
-						});
-					
-					} else {
-						res.status(400).send('Invalid Values');
-					}
-						
-					break;
+				break;
+			} else {		
+			
+				switch(req.body.type) {
+
+					// Searching by first name
+					case "firstname":
+
+						// Check if correct format
+						if(checkInput(req.body.value, "name")) {
+
+							// Search for first name in database
+							tempCont.query("SELECT * FROM contact WHERE UserID = ? AND FirstName LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
+
+								// Check if query works
+								if (err) {
+									res.status(400).send('Query Fail');
+								} else {
+									res.send(result);
+								}				        
+							});				
+
+						} else {
+							res.status(400).send('Invalid Values');
+						}	
+
+						break;
+
+					// Searching by last name
+					case "lastname":
+
+						// Check if correct format
+						if(checkInput(req.body.value, "name")) {
+
+							// Search for last name in database
+							tempCont.query("SELECT * FROM contact WHERE UserID = ? AND LastName LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
+
+								// Check if query fail
+								if (err) {
+									res.status(400).send('Query Fail');
+								} else {
+									res.send(result);
+								}			        
+							});	
+
+						} else {
+							res.status(400).send('Invalid Values');
+						}
+
+						break;
+
+					// Searching by phone number
+					case "phone":
+
+						// Check if correct format
+						if(checkInput(req.body.value, "phonesearch")) {
+
+							// Search for phone number in database
+							tempCont.query("SELECT * FROM contact WHERE UserID = ? AND PhoneNumber LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result){
+
+								// Check if query works
+								if (err) {
+									res.status(400).send('Query Fail');
+								} else {
+									res.send(result);
+								}
+							});
+
+						} else {
+							res.status(400).send('Invalid Values');
+						}
+
+						break;
+
+					// Searching by email
+					default:
+
+						// Check if correct format
+						if(checkInput(req.body.value, "emailsearch")) {
+
+							// Search for email in database
+							tempCont.query("SELECT * FROM contact WHERE UserID = ? AND Email LIKE '%" + req.body.value + "%'",[req.user.UserID], function(err, result) {
+
+								// Check if query works
+								if (err) {
+									res.status(400).send('Query Fail');
+								} else {
+									res.send(result);
+								}      
+							});
+
+						} else {
+							res.status(400).send('Invalid Values');
+						}
+
+						break;
+				}
 			}
 		}
 			
