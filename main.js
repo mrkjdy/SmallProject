@@ -303,21 +303,7 @@ app.post('/searchcontact', function(req, res) {
 			res.status(400).send('Connection fail');
 				
 		} else {
-			
-			if(req.body.value === ""){
-				// Search by user id
-				tempCont.query("SELECT * FROM contact WHERE UserID = ?",[req.user.UserID], function(err, result) {
-						
-					// Check if query works
-					if(err) {
-						res.status(400).send('Query Fail');
-					} else {
-						res.send(result);	
-					}
-				});
 
-			} else {		
-			
 				switch(req.body.type) {
 
 					// Searching by first name
@@ -412,7 +398,6 @@ app.post('/searchcontact', function(req, res) {
 
 						break;
 				}
-			}
 		}
 			
 		// End connection
