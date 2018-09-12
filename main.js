@@ -304,7 +304,7 @@ app.post('/searchcontact', function(req, res) {
 				
 		} else {
 			
-			if(req.body.value == ""){
+			if(req.body.value === ""){
 				// Search by user id
 				tempCont.query("SELECT * FROM contact WHERE UserID = ?",[req.user.UserID], function(err, result) {
 						
