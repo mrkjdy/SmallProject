@@ -142,7 +142,8 @@ function getContacts()
 					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
 				}
 			}
-		};
+		}
+		xhr.send();
 	}
 	catch(err)
 	{
