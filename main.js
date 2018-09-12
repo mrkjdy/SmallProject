@@ -104,9 +104,12 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-/*app.all('*', function(req, res, next) {
-	if(req.sec)
-});*/
+app.all('*', function(req, res, next) {
+	if(req.secure) {
+		return next();
+	}
+	res.redirect('https://small-project-cop4331.herokuapp.com' + req.originalUrl);
+});
 
 
 // Login function
