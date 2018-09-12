@@ -10,6 +10,7 @@ var app = express();
 var path = require('path');
 
 // Body-parser initialization
+app.set('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
@@ -101,6 +102,11 @@ passport.deserializeUser(function(id, done) {
 		tempCont.release();
 	});
 });
+
+
+/*app.all('*', function(req, res, next) {
+	if(req.sec)
+});*/
 
 
 // Login function
