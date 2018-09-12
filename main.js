@@ -223,7 +223,7 @@ app.post('/register', function(req, res) {
 app.post('/addcontact', function(req, res) { 
 	
 	// Check if correct format
-	if(checkInput(req.body.firstname, "name") && checkInput(req.body.lastname, "name") && checkInput(req.body.phone, "phone") && checkInput(req.body.email, "email")) {
+	if(checkInput(req.body.firstname, "name") || checkInput(req.body.lastname, "name") || checkInput(req.body.phone, "phone") || checkInput(req.body.email, "email")) {
 			
 		// Create connection to database
 		db.getConnection(function(err, tempCont){
