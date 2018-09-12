@@ -399,7 +399,7 @@ function showCreateAccount()
 	document.getElementById("createAccountPrompt").style.display = "none";
 	document.getElementById("createAccountForm").style.display = "block";
 	document.getElementById("loginPrompt").style.display = "block";
-	document.getElementById("newUName").focus();
+	document.getElementById("newFName").focus();
 	document.getElementById("submitMessage").innerHTML = "";
 }
 

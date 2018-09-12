@@ -69,6 +69,7 @@ input
   border-radius: 4px;
   margin: 10px 10px 40px 10px;
   text-align: center;
+  padding: 3px;
 }
 
 button {
