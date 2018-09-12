@@ -15,7 +15,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
 	secret: '7i5mnQZjPSqL924rQvxG',
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	cookie: {
+		secure: true,
+		maxAge: 86400000
+	}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
