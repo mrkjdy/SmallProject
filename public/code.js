@@ -237,7 +237,7 @@ function addContact()
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = "Contact not added successfully.";
 	}
 	// End
 
@@ -370,9 +370,11 @@ function deleteContact(index, id)
 	{
 		xhr.send(jsonPayload);
 		//console.log("payload sent");
+		document.getElementById("contactAddResult").innerHTML = "Contact succesfully deleted";
 	}
 	catch(err)
 	{
+		document.getElementById("contactAddResult").innerHTML = "Contact not deleted successfully";
 
 	}
 	// End
