@@ -206,6 +206,28 @@ function addContact()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
+				
+				var table = document.getElementById("cTable");
+		
+				// create a new row
+				var newRow = table.insertRow(table.rows.length);
+
+				// create a new cell
+				var cell = newRow.insertCell(0);
+				// add value to the cell
+				cell.innerHTML = fName;
+				cell = newRow.insertCell(1);
+				cell.innerHTML = lName;
+				cell = newRow.insertCell(2);
+				cell.innerHTML = eMail;
+				cell = newRow.insertCell(3);
+				cell.innerHTML = pNum;
+				cell = newRow.insertCell(4);
+				
+				var jsonObject = JSON.parse(this.responseText);
+
+				// Creates the X button to delete the contact TODO: revise
+				cell.innerHTML = '<span onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
 			}
 		};
 		xhr.send(jsonPayload);
