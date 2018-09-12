@@ -154,7 +154,7 @@ app.get('*', function(req, res) {
 app.post('/register', function(req, res) {
 	
 	// Check if correct format
-	if(checkInput(req.body.username, "username") && checkInput(req.body.firstname, "name") && checkInput(req.body.lastname, "name")) {
+	if(checkInput(req.body.username, "username") && checkInput(req.body.firstname, "name") && checkInput(req.body.lastname, "name") && checkInput(req.body.password, "password")) {
 		
 		// Create connection to database
 		db.getConnection(function(err, tempCont){
