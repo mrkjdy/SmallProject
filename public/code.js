@@ -207,7 +207,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("contactAddResult").innerHTML = "Contact succesfully added";
+				document.getElementById("contactAddResultPos").innerHTML = "Contact successfully added";
 				
 				var table = document.getElementById("cTable");
 		
@@ -237,7 +237,7 @@ function addContact()
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = "Contact not added successfully.";
+		document.getElementById("contactAddResultNeg").innerHTML = "Contact not added successfully.";
 	}
 	// End
 
@@ -370,11 +370,11 @@ function deleteContact(index, id)
 	{
 		xhr.send(jsonPayload);
 		//console.log("payload sent");
-		document.getElementById("contactAddResult").innerHTML = "Contact succesfully deleted";
+		document.getElementById("contactAddResultPos").innerHTML = "Contact successfully deleted";
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = "Contact not deleted successfully";
+		document.getElementById("contactAddResultNeg").innerHTML = "Contact not deleted successfully";
 
 	}
 	// End
