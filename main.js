@@ -408,8 +408,8 @@ app.post('/getallcontact', function(req, res) {
 					}
 				});
 			}
+			tempCont.release();
 		});
-		tempCont.release();
 	} else {
 		res.status(400).send('User not logged in');
 	}
