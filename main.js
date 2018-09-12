@@ -8,8 +8,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const favicon = require('serve-favicon');
 var app = express();
 var path = require('path');
-var router = express.Router();
-
 
 // Body-parser initialization
 app.use(bodyParser.json());
@@ -53,14 +51,22 @@ passport.use(new LocalStrategy(function(username, password, done) {
 		
 		db.getConnection(function(err, tempCont) {
 			if(err) {
-				res.status(400).send('Connetion Fail');
+				return done(null, false);
 			} else {
 				tempCont.query("SELECT * FROM users WHERE Login = ? AND Password = ?;", [username, password], function(err, result) {
 					if(err) {
+						console.log('login database error');
 						return done(true, false);
 					} else {
-						if(result.length === 0) return done(null, false);
-						return done(null, result[0]);
+						if(result.length === 0) {
+							console.log('login not found error');
+							return done(null, false);
+						} else {
+							tempCont.query("UPDATE users SET DateLastLoggedIn = NOW() WHERE UserID = ?;", [result[0].UserID], function(err, result1) {
+								if(err) console.log(err);
+								return done(null, result[0]);
+							});
+						}
 					}
 				});
 			}
@@ -72,7 +78,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-	//console.log(user);
 	done(null, user.UserID);
 });
 passport.deserializeUser(function(id, done) {
@@ -123,9 +128,27 @@ app.post('/login', function(req, res) {
 // Logout function
 app.get('/logout', function(req, res) {
 	req.logout();
-	res.redirect('/index.html');
+	res.redirect('/');
 });
 
+
+// Routing functions
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/html/index.html');
+});
+
+app.get('/contacts', function(req, res) {
+	if(req.user) {
+		res.sendFile(__dirname + '/html/contacts.html');
+	} else {
+		res.redirect('/');
+	}
+});
+
+// Serves 404 page for invalid requests
+app.get('*', function(req, res) {
+	res.status(404).send('Page not found');
+});
 
 // Register function
 app.post('/register', function(req, res) {
@@ -370,12 +393,25 @@ app.post('/searchcontact', function(req, res) {
 });
 
 
-// GET for displaying contacts.html
-router.get('/contacts.html', function(req, res) {
+// Get all user contacts
+app.post('/getallcontact', function(req, res) {
 	if(req.user) {
-		res.sendFile('contacts.html');
+		db.getConnection(function(err, tempCont) {
+			if(err) {
+				res.status(400).send('Database connection error');
+			} else {
+				tempCont.query("SELECT * FROM contact WHERE UserID = ?;", [req.user.UserID], function(err, result) {
+					if(err) {
+						res.status(400).send('Database query error');
+					} else {
+						res.send(result);
+					}
+				});
+			}
+			tempCont.release();
+		});
 	} else {
-		res.redirect('/index.html');
+		res.status(400).send('User not logged in');
 	}
 });
 

@@ -1,7 +1,7 @@
 var APIRoot = 'https://small-project-cop4331.herokuapp.com'; 
 var fileExtension = '.js'; 
-var contactsURL = 'contacts.html';
-var loginURL = 'index.html';
+var contactsURL = '/contacts';
+var loginURL = '/';
 
 var userID = 0;
 var firstName = '';
@@ -84,6 +84,71 @@ function login()
 	// End
 
 	// test the function is running: alert("Login()");
+}
+
+function getContacts()
+{
+	var url = '/getallcontact';
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var table = document.getElementById("cTable");
+
+				// clear the table
+				while (table.rows.length > 1)
+				{
+					table.deleteRow(table.rows.length - 1);
+				}
+				//console.log(table.rows.length);
+
+				//console.log(this.responseText);
+
+				var jt = this.responseText;
+        		//var JSLength = jt.length;
+				//jt = jt.substr(1, (JSLength - 2));
+
+				//console.log(jt);
+
+				var jsonObject = JSON.parse(jt);
+
+				// create the fields in the table 
+				for(var i = 0; i < jsonObject.length; i++)
+				{
+					// create a new row
+					var newRow = table.insertRow(table.rows.length);
+
+					// create a new cell
+					var cell = newRow.insertCell(0);
+					// add value to the cell
+					cell.innerHTML = jsonObject[i].FirstName;
+
+					cell = newRow.insertCell(1);
+					cell.innerHTML = jsonObject[i].LastName;
+					cell = newRow.insertCell(2);
+					cell.innerHTML = jsonObject[i].Email;
+					cell = newRow.insertCell(3);
+					cell.innerHTML = jsonObject[i].PhoneNumber;
+					cell = newRow.insertCell(4);
+
+					// Creates the X button to delete the contact TODO: revise
+					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
+				}
+			}
+		}
+		xhr.send();
+	}
+	catch(err)
+	{
+		
+	}
 }
 
 function addContact()
@@ -592,3 +657,6 @@ function calcMD5(str)
   }
   return rhex(a) + rhex(b) + rhex(c) + rhex(d);
 }
+
+// populates contact table on page load
+window.onload = getContacts;
