@@ -36,14 +36,16 @@
 
 	  <div class="container-fluid">
 		<form onsubmit="searchContact(); return false" id="searchForm">
-		  <input type="text" id="searchString" placeholder="Search contacts..." autofocus>
-		  <select id="sBox">
-			<option value="firstname">First Name</option>
-			<option value="lastname">Last Name</option>
-			<option value="email">Email</option>
-			<option value="phone">Phone</option>
-		  </select>
-		  <input type="submit" id="submitSearch" class="button" value="Search"><br><br>
+			<div class="row">
+			<input type="text" id="searchString" placeholder="Search contacts..." autofocus>
+			<select id="sBox">
+				<option value="firstname">First Name</option>
+				<option value="lastname">Last Name</option>
+				<option value="email">Email</option>
+				<option value="phone">Phone</option>
+			</select>
+			<input type="submit" id="submitSearch" class="button" value="Search"><br><br>
+			</div>
 		</form>
 
 		<form onsubmit="addContact(); return false" id="addContactForm">
@@ -52,8 +54,9 @@
 		  <input type="text" id="newLastName" placeholder="Last Name">
 		  <input type="text" id="newEmail" placeholder="Email">
 		  <input type="text" id="newPhone" placeholder="Phone Number">
+		  <input type="submit" id="submitAddContact" class="button" value="Add Contact">
 		  </div>
-		  <input type="submit" id="submitAddContact" class="button" value="Add Contact"><br>
+		  <br>
 		</form>
 		<p id="contactAddResult"></p><br>
 

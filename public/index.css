@@ -25,11 +25,23 @@ body
   padding: 10px;
 }
 
+#login-box input
+{
+  width: 70%;
+}
+
+select
+{
+  padding: 10px;
+  outline: 0;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
 input
 {
   padding: 10px;
   outline: 0;
-  width: 70%;
   margin: 8px 0;
   box-sizing: border-box;
 }
