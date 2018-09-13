@@ -140,7 +140,7 @@ function getContacts()
 						cell = newRow.insertCell(4);
 
 						// Creates the X button to delete the contact TODO: revise
-						cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
+						cell.innerHTML = '<span id="pointer" onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
 					}
 				}
 			}
@@ -229,7 +229,7 @@ function addContact()
 				var jsonObject = JSON.parse(this.responseText);
 
 				// Creates the X button to delete the contact TODO: revise
-				cell.innerHTML = '<span class="button" test onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')">&times;</span>';
+				cell.innerHTML = '<span id="pointer" onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
 			}
 		};
 		xhr.send(jsonPayload);
