@@ -95,10 +95,6 @@ button {
      cursor: pointer;
 }
 
-#more {
-  background:none;
-  border:none;
-  color:#FFF;
-  font-family:Verdana, Geneva, sans-serif;
-  cursor:pointer;
+.pointer {
+  cursor: pointer;
 }
