@@ -229,7 +229,7 @@ function addContact()
 				var jsonObject = JSON.parse(this.responseText);
 
 				// Creates the X button to delete the contact TODO: revise
-				cell.innerHTML = '<span onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
+				cell.innerHTML = '<span class="button" onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
 			}
 		};
 		xhr.send(jsonPayload);
