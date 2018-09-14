@@ -528,8 +528,12 @@ function showLogin()
 
 function clearSearch() {
 	document.getElementById("contactAddResult").innerHTML = "";
-	document.getElementById("searchString").innerHTML = "";
-	getContacts();
+	if(document.getElementById("searchString").innerHTML === "") {
+		return;
+	} else {
+		document.getElementById("searchString").innerHTML = "";
+		getContacts();
+	}
 	return;
 }
 
