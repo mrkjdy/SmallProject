@@ -16,14 +16,14 @@ function login()
 	var pass = document.getElementById("pWord").value;
 
 	// Hash Password
-	pass = calcMD5(pass);
+	var hpass = calcMD5(pass);
 	// End
 
 	//TODO: add an error message element to login page
 	document.getElementById("submitMessage").innerHTML = "";
 
 	// Create JSON pacage 
-	var jsonPayload = '{"username" : "' + user + '", "password" : "' + pass + '"}';
+	var jsonPayload = '{"username" : "' + user + '", "password" : "' + hpass + '"}';
 	var url = "/login"; //+ 'small-project-cop4331.herokuapp.com:5000'; //+ fileExtension;
 
 	//alert(jsonPayload);
@@ -31,59 +31,68 @@ function login()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	if (user === "") {
+		document.getElementById("submitMessage").innerHTML = "No username specified";
+	} else if (pass === "") {
+		document.getElementById("submitMessage").innerHTML = "No password specified";
+	} else {
+		try
+		{
+			//console.log("test!");
 
-	try
-	{
-		//console.log("test!");
+			//console.log("test1");
 
-		//console.log("test1");
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
 
-		xhr.onreadystatechange = function() {
-    		if (this.readyState == 4 && this.status == 200) {
+					var JS = this.responseText;
+					var JSLength = JS.length;
+					JS = JS.substr(1, (JSLength - 2));
 
-        		var JS = this.responseText;
-        		var JSLength = JS.length;
-				JS = JS.substr(1, (JSLength - 2));
+					var jsonObject = JSON.parse(JS);
 
-				var jsonObject = JSON.parse(JS);
+					//localStorage.setItem(JSONtextID, JS);
+					//console.log("woooooo");
+				
+					//console.log("test2");
 
-        		//localStorage.setItem(JSONtextID, JS);
-        		//console.log("woooooo");
-    		
-    			//console.log("test2");
+					userID = jsonObject.UserId;
 
-				userID = jsonObject.UserId;
+					//localStorage.setItem(jsonObject.UserID, userID);
 
-				//localStorage.setItem(jsonObject.UserID, userID);
+					//check wether login was succesfull
+					if (userID == 0)
+					{
+						document.getElementById("submitMessage").innerHTML = "User or Password incorrect";
+						return;
+					}
 
-				//check wether login was succesfull
-				if (userID == 0)
-				{
-					document.getElementById("submitMessage").innerHTML = "User or Password incorrect";
-					return;
+					// firstName = jsonObject.firstName;
+					// lastName = jsonObject.lastName;
+
+					document.getElementById("uName").value = "";
+					document.getElementById("pWord").value = "";
+
+					// redirection code
+					document.location.href = contactsURL;
 				}
+			};
 
-				// firstName = jsonObject.firstName;
-				// lastName = jsonObject.lastName;
-
-				document.getElementById("uName").value = "";
-				document.getElementById("pWord").value = "";
-
-				// redirection code
-				document.location.href = contactsURL;
-			}
-		};
-
-		// send pacage to API
-		xhr.send(jsonPayload);
+			// send pacage to API
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			document.getElementById("submitMessage").innerHTML = err.message;
+		}
 	}
-	catch(err)
-	{
-		document.getElementById("submitMessage").innerHTML = err.message;
-	}
+
+	
 	// End
 
 	// test the function is running: alert("Login()");
+	return;
 }
 
 function getContacts()
