@@ -186,9 +186,9 @@ function addContact()
 	if(fName === "" && lName === "" && eMail === "" && pNum === "") {
 		document.getElementById("contactAddResult").innerHTML = "Warning - no information provided for add contact";
 	} else if(fName !== "" && nameRE.test(fName) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
+		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and cannot exceed 20 characters";
 	} else if(lName !== "" && nameRE.test(lName) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
+		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and cannot exceed 20 characters";
 	} else if(eMail !== "" && emailRE.test(eMail) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid email";
 	} else if(pNum !== "" && phoneRE.test(pNum) === false) {
@@ -454,10 +454,10 @@ function createAccount()
 		document.getElementById("submitMessage").innerHTML = "Password confirmation is required";
 		return;
 	} else if(nameRE.test(fName) === false) {
-		document.getElementById("submitMessage").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
+		document.getElementById("submitMessage").innerHTML = "Invalid first name - must contain only letters and cannot exceed 20 characters";
 		return;
 	} else if(nameRE.test(lName) === false) {
-		document.getElementById("submitMessage").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
+		document.getElementById("submitMessage").innerHTML = "Invalid last name - must contain only letters and cannot exceed 20 characters";
 		return;
 	} else if(usernameRE.test(user) === false) {
 		document.getElementById("submitMessage").innerHTML = "Invalid username - must contain only letters and numbers and must be 5-20 characters";
