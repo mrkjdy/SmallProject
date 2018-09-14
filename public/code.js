@@ -340,7 +340,6 @@ function searchContact()
 
 	
 	// End
-	return;
 	// test the function is running: alert("searchContact()");
 }
 
@@ -528,13 +527,10 @@ function showLogin()
 
 function clearSearch() {
 	document.getElementById("contactAddResult").innerHTML = "";
-	if(document.getElementById("searchString").innerHTML === "") {
-		return;
-	} else {
+	if(document.getElementById("searchString").innerHTML !== "") {
 		document.getElementById("searchString").innerHTML = "";
 		getContacts();
 	}
-	return;
 }
 
 /*----------------------------------*/
