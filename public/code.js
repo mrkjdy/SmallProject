@@ -16,14 +16,14 @@ var phoneRE = /(1){0,1}\d{10}$/i;
 var emailsRE = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
 var phonesRE = /\d{1,11}$/;
 
-var clearSearch = function()
+document.getElementById('clearSearch').addEventListener('click', function(event)
 {
 	document.getElementById("contactAddResult").innerHTML = "";
 	if(document.getElementById("searchString").innerHTML !== "") {
 		document.getElementById("searchString").innerHTML = "";
 		getContacts();
 	}
-}
+});
 
 function login()
 {
