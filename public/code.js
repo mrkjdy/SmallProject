@@ -715,10 +715,11 @@ function loadF()
 		document.getElementById('clearSearch').addEventListener('click', function(event)
 		{
 			document.getElementById("contactAddResult").innerHTML = "";
-			if(document.getElementById("searchString").innerHTML !== "") {
-				document.getElementById("searchString").innerHTML = "";
+			if(document.getElementById("searchString").value !== "") {
+				document.getElementById("searchString").value = "";
 				getContacts();
 			}
+			event.preventDefault();
 			return false;
 		});
 	}
