@@ -9,6 +9,11 @@ var lastName = '';
 
 var JSONtextID = '';
 
+var nameRE = /^[a-z]{1,20}$/i;
+var usernameRE = /^[a-z|\d]{1,20}$/i;
+var emailRE = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i;
+var phoneRE = /(1){0,1}\d{10}$/i;
+
 function login()
 {
 
@@ -441,56 +446,69 @@ function createAccount()
 	var user = document.getElementById("newUName").value;
 	var newPWord1 = document.getElementById("newPWord1").value;
 	var newPWord2 = document.getElementById("newPword2").value;
-
-	if (user == "")
-	{
-		document.getElementById("submitMessage").innerHTML = "Enter a user name";
+	
+	if(fName === "") {
+		document.getElementById("submitMessage").innerHTML = "First name is required";
 		return;
-	}
-
-	// Check if passwords match
-	if (newPWord1 !== newPWord2)
-	{
-		document.getElementById("submitMessage").innerHTML = "Passwords don't match";
+	} else if(lName === "") {
+		document.getElementById("submitMessage").innerHTML = "Last name is required";
 		return;
-	}
+	} else if(user === "") {
+		document.getElementById("submitMessage").innerHTML = "Username is required";
+		return;
+	} else if(newPWord1 === "") {
+		document.getElementById("submitMessage").innerHTML = "Password is required";
+		return;
+	} else if(newPWord2 === "") {
+		document.getElementById("submitMessage").innerHTML = "Password confirmation is required";
+		return;
+	} else if(nameRE.test(fName) === false || nameRE.test(lName) === false) {
+		document.getElementById("submitMessage").innerHTML = "Invalid first or last name - must contain only letters and numbers and cannot exceed 20 characters";
+		return;
+	} else if(usernameRE.test(user) === false) {
+		document.getElementById("submitMessage").innerHTML = "Invalid username - must contain only letters and numbers and must be 5-20 characters";
+		return;
+	} else if(newPWord1 !== newPWord2) {
+		document.getElementById("submitMessage").innerHTML = "Passwords do not match";
+		return;
+	} else {
+		newPWord1 = calcMD5(newPWord1);
 
-	newPWord1 = calcMD5(newPWord1);
+		// Check if username available
+		var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 
+							+ '", "firstname" : "' + fName + '", "lastname" : "'
+							+ lName + '"}';
+		var url = '/register'; //+ fileExtension;
 
-	// Check if username available
-	var jsonPayload = '{"username" : "' + user + '", "password" : "' + newPWord1 
-						+ '", "firstname" : "' + fName + '", "lastname" : "'
-						+ lName + '"}';
-	var url = '/register'; //+ fileExtension;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	try
-	{
-
-		xhr.onreadystatechange = function() 
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("uName").value = user;
-				document.getElementById("pWord").value = newPWord2;
-				login();
-			}
-			else if (this.status == 400)
-			{
-				document.getElementById("submitMessage").innerHTML = "Username already used";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		// return error mesage
-	}
 
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					document.getElementById("uName").value = user;
+					document.getElementById("pWord").value = newPWord2;
+					login();
+				}
+				else if (this.status == 400)
+				{
+					document.getElementById("submitMessage").innerHTML = "Username already in use";
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			// return error mesage
+		}
+	}
 	// set username and password then login
+	return;
 }
 
 function showCreateAccount()
