@@ -16,15 +16,6 @@ var phoneRE = /(1){0,1}\d{10}$/i;
 var emailsRE = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
 var phonesRE = /\d{1,11}$/;
 
-document.getElementById('clearSearch').addEventListener('click', function(event)
-{
-	document.getElementById("contactAddResult").innerHTML = "";
-	if(document.getElementById("searchString").innerHTML !== "") {
-		document.getElementById("searchString").innerHTML = "";
-		getContacts();
-	}
-});
-
 function login()
 {
 
@@ -113,7 +104,7 @@ function login()
 
 function getContacts()
 {
-	if(window.location.pathname.localeCompare('/contacts') === 0) {
+	//if(window.location.pathname.localeCompare('/contacts') === 0) {
 		var url = '/getallcontact';
 		
 		var xhr = new XMLHttpRequest();
@@ -175,7 +166,7 @@ function getContacts()
 		{
 			
 		}
-	}
+	//}
 }
 
 function addContact()
@@ -715,4 +706,19 @@ function calcMD5(str)
 }
 
 // populates contact table on page load
-window.onload = getContacts;
+window.onload = loadF;
+
+function loadF()
+{
+	if(window.location.pathname.localeCompare('/contacts') === 0) {
+		getContacts;
+		document.getElementById('clearSearch').addEventListener('click', function(event)
+		{
+			document.getElementById("contactAddResult").innerHTML = "";
+			if(document.getElementById("searchString").innerHTML !== "") {
+				document.getElementById("searchString").innerHTML = "";
+				getContacts();
+			}
+		});
+	}
+}
