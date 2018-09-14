@@ -180,82 +180,73 @@ function addContact()
 	document.getElementById("newLastName").value = '';
 	document.getElementById("newEmail").value = '';
 	document.getElementById("newPhone").value = '';
-
-	// // Get the user id
-	// var JS = localStorage.getItem(JSONtextID);
-
-	// //console.log(JS);
-
-	// var uJsonObject = JSON.parse(JS);
-
-	// //console.log(uJsonObject.UserId);
-
-	// userID = uJsonObject.UserId;
-	// // End
-
-	// document.getElementById("contactAddResult").innerHTML = "";
-
-	//console.log(userID);
-
-	// Create JSON pacage and send it to API
-	// var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
-	// 					+ lName + '", "email" : "' + eMail 
-	// 					+ '", "phone" : "' + pNum + '", "userid" : ' 
-	// 					+ userID + '}';
-
-	var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
+	
+	if(fName === "" && lName === "" && eMail === "" && pNum === "") {
+		document.getElementById("contactAddResult").innerHTML = "Warning - no information provided for add contact";
+	} else if(fName !== "" && nameRE.test(fName) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
+	} else if(lName !== "" && nameRE.test(lName) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
+	} else if(eMail !== "" && emailRE.test(eMail) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+	} else if(pNum !== "" && phoneRE.test(pNum) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid phone number - must be 9 or 10 numerical digits";
+	} else {
+		var jsonPayload = '{"firstname" : "' + fName + '", "lastname" : "'
 						+ lName + '", "email" : "' + eMail 
 						+ '", "phone" : "' + pNum + '"}';
 
-	//console.log(jsonPayload);
+		var url = '/addcontact';
 
-	var url = '/addcontact';
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	try
-	{
-		xhr.onreadystatechange = function()
+		try
 		{
-			if (this.readyState == 4 && this.status == 200)
+			xhr.onreadystatechange = function()
 			{
-				document.getElementById("contactAddResult").innerHTML = "Contact successfully added";
-				
-				var table = document.getElementById("cTable");
-		
-				// create a new row
-				var newRow = table.insertRow(table.rows.length);
+				if (this.readyState == 4 && this.status == 200)
+				{
+					document.getElementById("contactAddResult").innerHTML = "Contact successfully added";
+					
+					var table = document.getElementById("cTable");
+			
+					// create a new row
+					var newRow = table.insertRow(table.rows.length);
 
-				// create a new cell
-				var cell = newRow.insertCell(0);
-				// add value to the cell
-				cell.innerHTML = fName;
-				cell = newRow.insertCell(1);
-				cell.innerHTML = lName;
-				cell = newRow.insertCell(2);
-				cell.innerHTML = eMail;
-				cell = newRow.insertCell(3);
-				cell.innerHTML = pNum;
-				cell = newRow.insertCell(4);
-				
-				var jsonObject = JSON.parse(this.responseText);
+					// create a new cell
+					var cell = newRow.insertCell(0);
+					// add value to the cell
+					cell.innerHTML = fName;
+					cell = newRow.insertCell(1);
+					cell.innerHTML = lName;
+					cell = newRow.insertCell(2);
+					cell.innerHTML = eMail;
+					cell = newRow.insertCell(3);
+					cell.innerHTML = pNum;
+					cell = newRow.insertCell(4);
+					
+					var jsonObject = JSON.parse(this.responseText);
 
-				// Creates the X button to delete the contact TODO: revise
-				cell.innerHTML = '<span id="pointer" onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
-			}
-		};
-		xhr.send(jsonPayload);
-		//console.log("payload sent");
+					// Creates the X button to delete the contact TODO: revise
+					cell.innerHTML = '<span id="pointer" onclick="deleteContact('+ (table.rows.length - 1) + ', ' + jsonObject.insertId +')" class="w3-button w3-display-right">&times;</span>';
+				}
+			};
+			xhr.send(jsonPayload);
+			//console.log("payload sent");
+		}
+		catch(err)
+		{
+			document.getElementById("contactAddResult").innerHTML = "Contact not added successfully.";
+		}
 	}
-	catch(err)
-	{
-		document.getElementById("contactAddResult").innerHTML = "Contact not added successfully.";
-	}
+
+	
 	// End
 
 	// test the function is running: alert("addContact()");
+	return;
 }
 
 function searchContact()
@@ -462,8 +453,11 @@ function createAccount()
 	} else if(newPWord2 === "") {
 		document.getElementById("submitMessage").innerHTML = "Password confirmation is required";
 		return;
-	} else if(nameRE.test(fName) === false || nameRE.test(lName) === false) {
-		document.getElementById("submitMessage").innerHTML = "Invalid first or last name - must contain only letters and numbers and cannot exceed 20 characters";
+	} else if(nameRE.test(fName) === false) {
+		document.getElementById("submitMessage").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
+		return;
+	} else if(nameRE.test(lName) === false) {
+		document.getElementById("submitMessage").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
 		return;
 	} else if(usernameRE.test(user) === false) {
 		document.getElementById("submitMessage").innerHTML = "Invalid username - must contain only letters and numbers and must be 5-20 characters";
