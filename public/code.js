@@ -711,7 +711,7 @@ window.onload = loadF;
 function loadF()
 {
 	if(window.location.pathname.localeCompare('/contacts') === 0) {
-		getContacts;
+		getContacts();
 		document.getElementById('clearSearch').addEventListener('click', function(event)
 		{
 			document.getElementById("contactAddResult").innerHTML = "";
@@ -719,6 +719,7 @@ function loadF()
 				document.getElementById("searchString").innerHTML = "";
 				getContacts();
 			}
+			return false;
 		});
 	}
 }
