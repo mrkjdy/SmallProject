@@ -526,6 +526,13 @@ function showLogin()
 }
 
 
+function clearSearch() {
+	document.getElementById("contactAddResult").innerHTML = "";
+	document.getElementById("searchString").innerHTML = "";
+	getContacts();
+	return;
+}
+
 /*----------------------------------*/
 /* JavaScript implementation of MD5 */
 /*----------------------------------*/

@@ -35,7 +35,7 @@
       </div><br>
 
 	  <div class="container-fluid">
-		<form onsubmit="searchContact(); return false" id="searchForm">
+		<form id="searchForm">
 			<div class="row">
 			<input type="text" id="searchString" placeholder="Search contacts..." autofocus>
 			<select id="sBox">
@@ -44,7 +44,9 @@
 				<option value="email">Email</option>
 				<option value="phone">Phone</option>
 			</select>
-			<input type="submit" id="submitSearch" class="button" value="Search"><br><br>
+			<input type="submit" id="submitSearch" class="button" value="Search" onclick="searchContact()">
+			<input type="submit" id="clearSearch" class="button" value="Clear" onclick="clearSearch()">
+			<br><br>
 			</div>
 		</form>
 
