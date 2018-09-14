@@ -16,6 +16,15 @@ var phoneRE = /(1){0,1}\d{10}$/i;
 var emailsRE = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
 var phonesRE = /\d{1,11}$/;
 
+function clearSearch()
+{
+	document.getElementById("contactAddResult").innerHTML = "";
+	if(document.getElementById("searchString").innerHTML !== "") {
+		document.getElementById("searchString").innerHTML = "";
+		getContacts();
+	}
+}
+
 function login()
 {
 
@@ -258,7 +267,9 @@ function searchContact()
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
 	
-	if(sValue.localeCompare("firstname") === 0 && nameRE.test(sString) === false) {
+	if(sString === "") {
+		return;
+	} else if(sValue.localeCompare("firstname") === 0 && nameRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
 	} else if(sValue.localeCompare("lastname") === 0 && nameRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
@@ -522,15 +533,6 @@ function showLogin()
 	document.getElementById("loginPrompt").style.display = "none";
 	document.getElementById("uName").focus();
 	document.getElementById("submitMessage").innerHTML = "";
-}
-
-
-function clearSearch() {
-	document.getElementById("contactAddResult").innerHTML = "";
-	if(document.getElementById("searchString").innerHTML !== "") {
-		document.getElementById("searchString").innerHTML = "";
-		getContacts();
-	}
 }
 
 /*----------------------------------*/
