@@ -255,92 +255,90 @@ function searchContact()
 	
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
+	
+	if(sValue.localeCompare("firstname") && nameRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+	} else if(sValue.localeCompare("lastname") && nameRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+	} else if(sValue.localeCompare("email") && nameRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+	} else if(sValue.localeCompare("phone") && nameRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+	} else {
+		var contactTable = document.getElementById("cTable");
+		// Clear the table
 
-	// // Get the user id
-	// var JS = localStorage.getItem(JSONtextID);
+		// Create JSON pacage and send it to API
+		// var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
+		// 					+ userID + '}';
+		var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"}';
 
-	// //console.log(JS);
+		var url = '/searchcontact';
 
-	// var uJsonObject = JSON.parse(JS);
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	// //console.log(uJsonObject.UserId);
-
-	// userID = uJsonObject.UserId;
-	// // End
-
-	// document.getElementById("colorSearchResult").innerHTML = "";
-
-	var contactTable = document.getElementById("cTable");
-	// Clear the table
-
-	// Create JSON pacage and send it to API
-	// var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '", "userid" : ' 
-	// 					+ userID + '}';
-	var jsonPayload = '{"value" : "' + sString + '", "type" : "' + sValue + '"}';
-
-	var url = '/searchcontact';
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	try
-	{
-		xhr.onreadystatechange = function() 
+		try
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			xhr.onreadystatechange = function() 
 			{
-				var table = document.getElementById("cTable");
-
-				// clear the table
-				while (table.rows.length > 1)
+				if (this.readyState == 4 && this.status == 200) 
 				{
-					table.deleteRow(table.rows.length - 1);
+					var table = document.getElementById("cTable");
+
+					// clear the table
+					while (table.rows.length > 1)
+					{
+						table.deleteRow(table.rows.length - 1);
+					}
+					//console.log(table.rows.length);
+
+					//console.log(this.responseText);
+
+					var jt = this.responseText;
+					//var JSLength = jt.length;
+					//jt = jt.substr(1, (JSLength - 2));
+
+					//console.log(jt);
+
+					var jsonObject = JSON.parse(jt);
+
+					// create the fields in the table 
+					for(var i = 0; i < jsonObject.length; i++)
+					{
+						// create a new row
+						var newRow = table.insertRow(table.rows.length);
+
+						// create a new cell
+						var cell = newRow.insertCell(0);
+						// add value to the cell
+						cell.innerHTML = jsonObject[i].FirstName;
+
+						cell = newRow.insertCell(1);
+						cell.innerHTML = jsonObject[i].LastName;
+						cell = newRow.insertCell(2);
+						cell.innerHTML = jsonObject[i].Email;
+						cell = newRow.insertCell(3);
+						cell.innerHTML = jsonObject[i].PhoneNumber;
+						cell = newRow.insertCell(4);
+
+						// Creates the X button to delete the contact TODO: revise
+						cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
+					}
 				}
-				//console.log(table.rows.length);
-
-				//console.log(this.responseText);
-
-				var jt = this.responseText;
-        		//var JSLength = jt.length;
-				//jt = jt.substr(1, (JSLength - 2));
-
-				//console.log(jt);
-
-				var jsonObject = JSON.parse(jt);
-
-				// create the fields in the table 
-				for(var i = 0; i < jsonObject.length; i++)
-				{
-					// create a new row
-					var newRow = table.insertRow(table.rows.length);
-
-					// create a new cell
-					var cell = newRow.insertCell(0);
-					// add value to the cell
-					cell.innerHTML = jsonObject[i].FirstName;
-
-					cell = newRow.insertCell(1);
-					cell.innerHTML = jsonObject[i].LastName;
-					cell = newRow.insertCell(2);
-					cell.innerHTML = jsonObject[i].Email;
-					cell = newRow.insertCell(3);
-					cell.innerHTML = jsonObject[i].PhoneNumber;
-					cell = newRow.insertCell(4);
-
-					// Creates the X button to delete the contact TODO: revise
-					cell.innerHTML = '<span onclick="deleteContact('+ (i + 1) + ', ' + jsonObject[i].ContactID +')" class="w3-button w3-display-right">&times;</span>';
-				}
-			}
-		};
-		xhr.send(jsonPayload);
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err)
+		{
+			
+		}
 	}
-	catch(err)
-	{
-		
-	}
+
+	
 	// End
-
+	return;
 	// test the function is running: alert("searchContact()");
 }
 
