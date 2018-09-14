@@ -258,13 +258,13 @@ function searchContact()
 	var sString = document.getElementById("searchString").value;
 	var sValue = document.getElementById("sBox").value;
 	
-	if(sValue.localeCompare("firstname") && nameRE.test(sString) === false) {
+	if(sValue.localeCompare("firstname") === 0 && nameRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
-	} else if(sValue.localeCompare("lastname") && nameRE.test(sString) === false) {
+	} else if(sValue.localeCompare("lastname") === 0 && nameRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
-	} else if(sValue.localeCompare("email") && emailsRE.test(sString) === false) {
+	} else if(sValue.localeCompare("email") === 0 && emailsRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid character(s) detected";
-	} else if(sValue.localeCompare("phone") && phonesRE.test(sString) === false) {
+	} else if(sValue.localeCompare("phone") === 0 && phonesRE.test(sString) === false) {
 		document.getElementById("contactAddResult").innerHTML = "Invalid character(s) detected";
 	} else {
 		var contactTable = document.getElementById("cTable");
