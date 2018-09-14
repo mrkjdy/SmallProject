@@ -490,7 +490,6 @@ var checkInput = function(input, type, callback) {
 	}
 	
 	if(callback == undefined) {	
-		console.log("input type: " + type + ", input value: " + input + ", returnval: " + returnVal);
 		return returnVal;
 		
 	} else {
