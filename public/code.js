@@ -13,6 +13,8 @@ var nameRE = /^[a-z]{1,20}$/i;
 var usernameRE = /^[a-z|\d]{1,20}$/i;
 var emailRE = /^[a-z\d]{1,20}@[a-z]{1,10}(\.[a-z]{3}){1,2}$/i;
 var phoneRE = /(1){0,1}\d{10}$/i;
+var emailsRE = /[[a-z\d]*@{0,1}(\.{0,1}[a-z]*)*$/i;
+var phonesRE = /\d{1,11}$/;
 
 function login()
 {
@@ -257,13 +259,13 @@ function searchContact()
 	var sValue = document.getElementById("sBox").value;
 	
 	if(sValue.localeCompare("firstname") && nameRE.test(sString) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+		document.getElementById("contactAddResult").innerHTML = "Invalid first name - must contain only letters and numbers and cannot exceed 20 characters";
 	} else if(sValue.localeCompare("lastname") && nameRE.test(sString) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid email";
-	} else if(sValue.localeCompare("email") && nameRE.test(sString) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid email";
-	} else if(sValue.localeCompare("phone") && nameRE.test(sString) === false) {
-		document.getElementById("contactAddResult").innerHTML = "Invalid email";
+		document.getElementById("contactAddResult").innerHTML = "Invalid last name - must contain only letters and numbers and cannot exceed 20 characters";
+	} else if(sValue.localeCompare("email") && emailsRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid character(s) detected";
+	} else if(sValue.localeCompare("phone") && phonesRE.test(sString) === false) {
+		document.getElementById("contactAddResult").innerHTML = "Invalid character(s) detected";
 	} else {
 		var contactTable = document.getElementById("cTable");
 		// Clear the table
