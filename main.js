@@ -41,10 +41,10 @@ app.listen(PORT, function()
 // Database connection info
 var db = mysql.createPool({
 	connectionLimit: 10,
-	host     : 'us-cdbr-iron-east-01.cleardb.net',
-  	user     : 'b0e7c31b916c42',
-  	password : '04f5efab',
-  	database : 'heroku_883b37654a02d69'
+	host     : process.env.DATABASE_HOST,
+  	user     : process.env.DATABASE_USER,
+  	password : process.env.DATABASE_PASSWORD,
+  	database : process.env.DATABASE_NAME
 
 });
 
