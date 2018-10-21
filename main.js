@@ -35,6 +35,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.listen(PORT, function()
 {
 	console.log("Listening on " + PORT)
+	console.log("Database hose is " + process.env.DATABASE_HOST)
 });
 
 
